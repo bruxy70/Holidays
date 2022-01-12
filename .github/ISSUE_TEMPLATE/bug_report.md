@@ -39,7 +39,7 @@ Do you configure the integration in YAML or Config Flow (GUI)? : <!--Say YAML, o
 
 **Error log/debug information**
 <!--Copy the error message from Developer tools/Logs below.
-    To enable debug logging, add `custom_components.garbage_collection: debug` 
+    To enable debug logging, add `custom_components.holidays: debug` 
     to your config under logger/logs.-->
 
 ```txt

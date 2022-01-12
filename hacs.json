@@ -1,7 +1,7 @@
 {
-  "name": "Garbage Collection",
+  "name": "Holidays",
   "zip_release": true,
-  "filename": "garbage_collection.zip",
+  "filename": "holidays.zip",
   "domains": ["sensor"],
   "homeassistant": "0.110.0"
 }
