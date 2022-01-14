@@ -1,14 +1,14 @@
-"""Garbage collection calendar."""
+"""Holidays calendar."""
 
-import logging
-from datetime import datetime, timedelta
+# import logging
+from datetime import timedelta
 
 from homeassistant.components.calendar import CalendarEventDevice
 from homeassistant.util import Throttle
 
 from .const import CALENDAR_NAME, CALENDAR_PLATFORM, DOMAIN, SENSOR_PLATFORM
 
-_LOGGER = logging.getLogger(__name__)
+# _LOGGER = logging.getLogger(__name__)
 MIN_TIME_BETWEEN_UPDATES = timedelta(minutes=1)
 
 
@@ -17,11 +17,11 @@ async def async_setup_platform(
 ):  # pylint: disable=unused-argument
     """Add calendar entities to HA, of there are calendar instances."""
     # Only single instance allowed
-    if GarbageCollectionCalendar.instances == 0:
-        async_add_entities([GarbageCollectionCalendar(hass)], True)
+    if HolidaysCalendar.instances == 0:
+        async_add_entities([HolidaysCalendar(hass)], True)
 
 
-class GarbageCollectionCalendar(CalendarEventDevice):
+class HolidaysCalendar(CalendarEventDevice):
     """The garbage collection calendar class."""
 
     instances = 0
@@ -30,7 +30,7 @@ class GarbageCollectionCalendar(CalendarEventDevice):
         """Create empry calendar."""
         self._cal_data = {}
         self._name = CALENDAR_NAME
-        GarbageCollectionCalendar.instances += 1
+        HolidaysCalendar.instances += 1
 
     @property
     def event(self):
@@ -93,41 +93,22 @@ class EntitiesCalendarData:
                 or hass.data[DOMAIN][SENSOR_PLATFORM][entity].hidden
             ):
                 continue
-            garbage_collection = hass.data[DOMAIN][SENSOR_PLATFORM][entity]
-            start = await garbage_collection.async_next_date(start_date, True)
+            holidays = hass.data[DOMAIN][SENSOR_PLATFORM][entity]
+            start = await holidays.async_next_date(start_date)
             while start is not None and start >= start_date and start <= end_date:
                 try:
                     end = start + timedelta(days=1)
                 except TypeError:
                     end = start
-                if garbage_collection.expire_after is None:
-                    event = {
-                        "uid": entity,
-                        "summary": garbage_collection.name,
-                        "start": {"date": start.strftime("%Y-%m-%d")},
-                        "end": {"date": end.strftime("%Y-%m-%d")},
-                        "allDay": True,
-                    }
-                else:
-                    event = {
-                        "uid": entity,
-                        "summary": garbage_collection.name,
-                        "start": {
-                            "date": datetime.combine(
-                                start, garbage_collection.expire_after
-                            ).strftime("%Y-%m-%d %H:%M")
-                        },
-                        "end": {
-                            "date": datetime.combine(
-                                start, garbage_collection.expire_after
-                            ).strftime("%Y-%m-%d %H:%M")
-                        },
-                        "allDay": False,
-                    }
+                event = {
+                    "uid": entity,
+                    "summary": holidays.name,
+                    "start": {"date": start.strftime("%Y-%m-%d")},
+                    "end": {"date": end.strftime("%Y-%m-%d")},
+                    "allDay": True,
+                }
                 events.append(event)
-                start = await garbage_collection.async_next_date(
-                    start + timedelta(days=1), True
-                )
+                start = await holidays.async_next_date(start + timedelta(days=1))
         return events
 
     @Throttle(MIN_TIME_BETWEEN_UPDATES)

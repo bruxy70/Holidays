@@ -36,6 +36,7 @@ CONFIG_SCHEMA = vol.Schema(
     extra=vol.ALLOW_EXTRA,
 )
 
+
 async def async_setup(hass, config):
     """Set up this component using YAML."""
 
@@ -44,6 +45,7 @@ async def async_setup(hass, config):
         return True
 
     return False
+
 
 async def async_setup_entry(hass, config_entry):
     """Set up this integration using UI."""
@@ -70,9 +72,7 @@ async def async_remove_entry(hass, config_entry):
         await hass.config_entries.async_forward_entry_unload(
             config_entry, SENSOR_PLATFORM
         )
-        _LOGGER.info(
-            "Successfully removed sensor from the holidays integration"
-        )
+        _LOGGER.info("Successfully removed sensor from the holidays integration")
     except ValueError:
         pass
 

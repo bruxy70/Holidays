@@ -5,7 +5,7 @@ from typing import Any
 
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
-from homeassistant.const import ATTR_HIDDEN, CONF_ENTITIES, CONF_NAME, WEEKDAYS
+from homeassistant.const import ATTR_HIDDEN, CONF_ENTITIES, CONF_NAME
 
 from .config_singularity import config_singularity
 
