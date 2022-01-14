@@ -32,7 +32,7 @@ CONF_ENABLED = "enabled"
 CONF_ICON_NORMAL = "icon_normal"
 CONF_ICON_TODAY = "icon_today"
 CONF_ICON_TOMORROW = "icon_tomorrow"
-CONF_MOVE_COUNTRY_HOLIDAYS = "move_country_holidays"
+CONF_COUNTRY = "country"
 CONF_HOLIDAY_POP_NAMED = "holiday_pop_named"
 CONF_PROV = "prov"
 CONF_STATE = "state"
@@ -189,7 +189,7 @@ class configuration(config_singularity):
             "type": str,
             "validator": cv.entity_ids,
         },
-        CONF_MOVE_COUNTRY_HOLIDAYS: {
+        CONF_COUNTRY: {
             "step": 1,
             "method": vol.Optional,
             "type": vol.In(COUNTRY_CODES),
