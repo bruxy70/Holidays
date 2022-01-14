@@ -12,7 +12,6 @@ from homeassistant.const import CONF_ENTITY_ID, CONF_NAME
 from homeassistant.helpers import discovery
 
 from .const import (
-    CONF_DATE,
     CONF_SENSORS,
     DOMAIN,
     SENSOR_PLATFORM,
