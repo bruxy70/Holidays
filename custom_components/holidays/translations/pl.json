@@ -3,7 +3,7 @@
         "step": {
             "user": {
                 "title": "Wywóz Śmieci - Częstotliwość wywozu",
-                "description": "Wprowadź nazwę dla sensora i zkonfiguruj jego parametry. Więcej informacji na stronie https://github.com/bruxy70/Garbage-Collection",
+                "description": "Wprowadź nazwę dla sensora i zkonfiguruj jego parametry. Więcej informacji na stronie https://github.com/bruxy70/Holidays",
                 "data": {
                     "name": "Przyjazna nazwa",
                     "hidden": "Ukryj w kalendarzu",
@@ -31,7 +31,7 @@
             },
             "detail": {
                 "title": "Wywóz Śmieci - Dni wywozu",
-                "description": "Wybierz jeden lub więcej dni wywozu. Więcej szczegółów tutaj: https://github.com/bruxy70/Garbage-Collection",
+                "description": "Wybierz jeden lub więcej dni wywozu. Więcej szczegółów tutaj: https://github.com/bruxy70/Holidays",
                 "data": {
                     "collection_days_mon": "Poniedziałek",
                     "collection_days_tue": "Wtorek",
@@ -45,7 +45,7 @@
             },
             "final": {
                 "title": "Wywóz Śmieci - Dodatkowe parametry",
-                "description": "Dołączone i wyłączone daty są listą, rozdzielanych przecinkami, dat w formacie rrrr-mm-dd. Więcej informacji tutaj https://github.com/bruxy70/Garbage-Collection",
+                "description": "Dołączone i wyłączone daty są listą, rozdzielanych przecinkami, dat w formacie rrrr-mm-dd. Więcej informacji tutaj https://github.com/bruxy70/Holidays",
                 "data": {
                     "first_month": "Miesiąc pierwszego wywozu",
                     "last_month": "Miesiąc ostatniego wywozu",
@@ -93,7 +93,7 @@
         "step": {
             "init": {
                 "title": "Wywóz Śmieci - Częstotliwośc wywozu",
-                "description": "Zmień parametry sensora. Więcej informacji tutaj https://github.com/bruxy70/Garbage-Collection",
+                "description": "Zmień parametry sensora. Więcej informacji tutaj https://github.com/bruxy70/Holidays",
                 "data": {
                     "hidden": "Ukryj w kalendarzu",
                     "frequency": "Częstotliwość",
@@ -120,7 +120,7 @@
             },
             "detail": {
                 "title": "Wywóz Śmieci - Dni wywozu",
-                "description": "Wybierz jeden lub więcej dni wywozu. Więcej szczegółów tutaj: https://github.com/bruxy70/Garbage-Collection",
+                "description": "Wybierz jeden lub więcej dni wywozu. Więcej szczegółów tutaj: https://github.com/bruxy70/Holidays",
                 "data": {
                     "collection_days_mon": "Poniedziałek",
                     "collection_days_tue": "Wtorek",
@@ -134,7 +134,7 @@
             },
             "final": {
                 "title": "Wywóz Śmieci - Dodatkowe parametry",
-                "description": "Dołączone i wyłączone daty są listą, rozdzielanych przecinkami, dat w formacie rrrr-mm-dd. Więcej informacji tutaj https://github.com/bruxy70/Garbage-Collection",
+                "description": "Dołączone i wyłączone daty są listą, rozdzielanych przecinkami, dat w formacie rrrr-mm-dd. Więcej informacji tutaj https://github.com/bruxy70/Holidays",
                 "data": {
                     "first_month": "Miesiąc pierwszego wywozu",
                     "last_month": "Miesiąc ostatniego wywozu",
