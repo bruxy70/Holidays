@@ -115,7 +115,7 @@ class Holidays(RestoreEntity):
             try:
                 for holiday_date, holiday_name in hol.items():
                     self._holidays.append(holiday_date)
-                    self._holiday_names[holiday_date] = holiday_name
+                    self._holiday_names[f"{holiday_date}"] = holiday_name
                     log += f"\n  {holiday_date}: {holiday_name}"
             except KeyError:
                 _LOGGER.error(
@@ -205,7 +205,7 @@ class Holidays(RestoreEntity):
         res[ATTR_DAYS] = self._days
         res[ATTR_LAST_UPDATED] = self._last_updated
         holidays = ""
-        for key,value in self._holiday_names:
+        for key,value in self._holiday_names.items():
             holidays += f"\n  {key}: {value}"
         res[ATTR_HOLIDAYS] = holidays
         return res
@@ -248,7 +248,7 @@ class Holidays(RestoreEntity):
     def holiday_name(self,holiday_date:date):
         """Get holiday name for a date."""
         try:
-            return self._holiday_names[holiday_date]
+            return self._holiday_names[f"{holiday_date}"]
         except KeyError:
             return None
 
