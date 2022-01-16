@@ -1,15 +1,11 @@
 """Calendar platform for holidays."""
-import asyncio
 import logging
-from datetime import date, datetime, time, timedelta
-from typing import Any, List, Optional, Union
+from datetime import date, datetime, timedelta
+from typing import Optional
 
 import holidays
 import homeassistant.util.dt as dt_util
-from dateutil.parser import parse
-from dateutil.relativedelta import relativedelta
 from homeassistant.const import ATTR_HIDDEN, CONF_ENTITIES, CONF_NAME
-from homeassistant.helpers.discovery import async_load_platform
 from homeassistant.helpers.restore_state import RestoreEntity
 
 from .const import (
