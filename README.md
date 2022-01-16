@@ -4,12 +4,15 @@
 
 # Holidays
 
-The `holidays` componnent is a Home Assistant integration that a custom sensor with a list of public holidays in a countrt, based on the Python (Holidays)[https://github.com/dr-prodigy/python-holidays] library. It's primary purpose is to automatically move `garbage_collection` integration entities with `manual_update` automation blueprints, but can also be used independently to show next public holiday in given country.
+The `holidays` componnent is a **Home Assistant** integration that creates `calendar` entities with a list of public holidays in a country, based on the Python (Holidays)[https://github.com/dr-prodigy/python-holidays] library.
+It's primary purpose is to work with `garbage_collection` integration to automatically move entities with `manual_update` automation blueprints. But it can also be used independently to show next public holiday in given country (or multiple countries).
 
 ## Table of Contents
 * [Installation](#installation)
   + [Manual Installation](#manual-installation)
   + [Installation via Home Assistant Community Store (HACS)](#installation-via-home-assistant-community-store-hacs)
+* [Parameters](#Parameters)
+* [Attributes](#Attributes)
 
 ## Installation
 
@@ -26,5 +29,24 @@ The `holidays` componnent is a Home Assistant integration that a custom sensor w
 1. Ensure that [HACS](https://hacs.xyz/) is installed.
 2. Search for and install the "Holidays" integration.
 4. Restart Home Assistant.
-5. Add the `Holidays` integration
+5. Go to `Configuration`/`Devices & Services` hit the `+ ADD INTEGRATION` button and and add the `Holidays` integration. <br />If you would like to add more than 1 calendar, click on the `+ ADD INTEGRATION` button again and add another `Holidays` integration instance.
+6. Configure the parameters
 
+## Parameters
+|Attribute |Required|Description
+|:----------|----------|------------
+| `Country` | Yes | Country holidays - the country code (see [holidays](https://github.com/dr-prodigy/python-holidays) for the list of valid country codes).<br/>*Example:* `US` 
+| `holiday_pop_named` | No | Ignore holidays (list of holiday names) *Example:* `"Columbus Day"`, `"Veterans Day"`
+| `prov` | No | Province (see [holidays](https://github.com/dr-prodigy/python-holidays) ).
+| `state` | No | State (see [holidays](https://github.com/dr-prodigy/python-holidays) ).
+| `observed` | No | Observed (see [holidays](https://github.com/dr-prodigy/python-holidays) ).
+
+## Attributes
+### State
+The State contains the number of days to the next country holiday. It is `0` if today is a public holiday.
+
+### Attributes
+| Attribute | Description
+|:----------|------------
+| `next_date` | The date of holiday
+| `holidays` | List of used country (last year, this year and next year). This is used by the `garbage_collection` blueprints to offset collections if they fall on a public holiday (or if holiday was earlier on in the week)
