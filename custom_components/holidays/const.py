@@ -12,13 +12,10 @@ from .config_singularity import config_singularity
 """Constants for holidays."""
 # Base component constants
 DOMAIN = "holidays"
-CALENDAR_NAME = "Holidays"
-SENSOR_PLATFORM = "sensor"
 CALENDAR_PLATFORM = "calendar"
 ATTRIBUTION = "Data from this is provided by holidays."
 
 ATTR_NEXT_DATE = "next_date"
-ATTR_DAYS = "days"
 ATTR_LAST_UPDATED = "last_updated"
 ATTR_HOLIDAYS = "holidays"
 
@@ -27,8 +24,7 @@ BINARY_SENSOR_DEVICE_CLASS = "connectivity"
 DEVICE_CLASS = "holidays__schedule"
 
 # Configuration
-CONF_SENSOR = "sensor"
-CONF_ENABLED = "enabled"
+CONF_CALENDAR = "calendar"
 CONF_ICON_NORMAL = "icon_normal"
 CONF_ICON_TODAY = "icon_today"
 CONF_ICON_TOMORROW = "icon_tomorrow"
@@ -37,7 +33,7 @@ CONF_HOLIDAY_POP_NAMED = "holiday_pop_named"
 CONF_PROV = "prov"
 CONF_STATE = "state"
 CONF_OBSERVED = "observed"
-CONF_SENSORS = "sensors"
+CONF_CALENDARS = "calendars"
 
 # Defaults
 DEFAULT_NAME = DOMAIN
@@ -47,10 +43,6 @@ DEFAULT_ICON_NORMAL = "mdi:trash-can"
 DEFAULT_ICON_TODAY = "mdi:delete-restore"
 DEFAULT_ICON_TOMORROW = "mdi:delete-circle"
 ICON = DEFAULT_ICON_NORMAL
-
-# States
-STATE_TODAY = "today"
-STATE_TOMORROW = "tomorrow"
 
 COUNTRY_CODES = [
     "",
