@@ -65,7 +65,7 @@ class Holidays(RestoreEntity):
         self._holiday_state = config.get(CONF_STATE)
         self._holiday_observed = config.get(CONF_OBSERVED, True)
         self._holidays = []
-        self._holidays_log = ""
+        self._holiday_names = {}
         self._next_date = None
         self._last_updated = None
         self._days = None
@@ -79,9 +79,9 @@ class Holidays(RestoreEntity):
 
     async def _async_load_holidays(self) -> None:
         """Load the holidays from from a date."""
-        self._holidays_log = ""
         log = ""
         self._holidays.clear()
+        self._holiday_names.clear()
         if self._country is not None and self._country != "":
             this_year = dt_util.now().date().year
             years = [this_year - 1, this_year, this_year + 1]
@@ -115,8 +115,8 @@ class Holidays(RestoreEntity):
             try:
                 for holiday_date, holiday_name in hol.items():
                     self._holidays.append(holiday_date)
+                    self._holiday_names[holiday_date] = holiday_name
                     log += f"\n  {holiday_date}: {holiday_name}"
-                    self._holidays_log += f"\n  {holiday_date}: {holiday_name}"
             except KeyError:
                 _LOGGER.error(
                     "(%s) Invalid country code (%s)",
@@ -204,7 +204,10 @@ class Holidays(RestoreEntity):
             ).astimezone()
         res[ATTR_DAYS] = self._days
         res[ATTR_LAST_UPDATED] = self._last_updated
-        res[ATTR_HOLIDAYS] = self._holidays_log
+        holidays = ""
+        for key,value in self._holiday_names:
+            holidays += f"\n  {key}: {value}"
+        res[ATTR_HOLIDAYS] = holidays
         return res
 
     @property
@@ -241,6 +244,13 @@ class Holidays(RestoreEntity):
                 continue
             return d
         return None
+
+    def holiday_name(self,holiday_date:date):
+        """Get holiday name for a date."""
+        try:
+            return self._holiday_names[holiday_date]
+        except KeyError:
+            return None
 
     async def async_update(self) -> None:
         """Get the latest data and updates the states."""

@@ -102,7 +102,7 @@ class EntitiesCalendarData:
                     end = start
                 event = {
                     "uid": entity,
-                    "summary": holidays.name,
+                    "summary": holidays.holiday_name(start),
                     "start": {"date": start.strftime("%Y-%m-%d")},
                     "end": {"date": end.strftime("%Y-%m-%d")},
                     "allDay": True,
