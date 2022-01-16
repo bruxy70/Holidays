@@ -18,13 +18,13 @@ jobs:
       # Pack the HACS dir as a zip and upload to the release
       - name: ZIP holidays Dir
         run: |
-          cd /home/runner/work/Garbage-Collection/Garbage-Collection/custom_components/holidays
+          cd /home/runner/work/Holidays/Holidays/custom_components/holidays
           zip holidays.zip -r ./
       - name: Upload zip to release
         uses: svenstaro/upload-release-action@v1-release
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: /home/runner/work/Garbage-Collection/Garbage-Collection/custom_components/holidays/holidays.zip
+          file: /home/runner/work/Holidays/Holidays/custom_components/holidays/holidays.zip
           asset_name: holidays.zip
           tag: ${{ github.ref }}
           overwrite: true
