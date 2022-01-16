@@ -2,8 +2,8 @@
     "config": {
         "step": {
             "user": {
-                "title": "Garbage Collection - Nastavenia",
-                "description": "Zadej meno senzoru a nastav parametre. Viac na https://github.com/bruxy70/Garbage-Collection",
+                "title": "Holidays - Nastavenia",
+                "description": "Zadej meno senzoru a nastav parametre. Viac na https://github.com/bruxy70/Holidays",
                 "data": {
                     "name": "Friendly name",
                     "hidden": "Skryť v kalendári",
@@ -21,7 +21,7 @@
                 }
             },
             "annual_group": {
-                "title": "Garbage Collection - Ďalšie parametre",
+                "title": "Holidays - Ďalšie parametre",
                 "description": "Zadej dátum zvozu (napr. 11/20 pre 20. november)",
                 "data": {
                     "date": "Dátum (mm/dd)",
@@ -29,8 +29,8 @@
                 }
             },
             "detail": {
-                "title": "Garbage Collection - Dny svozu",
-                "description": "Vyber jeden alebo viacej dní zvozu. Viac na: https://github.com/bruxy70/Garbage-Collection",
+                "title": "Holidays - Dny svozu",
+                "description": "Vyber jeden alebo viacej dní zvozu. Viac na: https://github.com/bruxy70/Holidays",
                 "data": {
                     "collection_days_mon": "Pondelok",
                     "collection_days_tue": "Útorok",
@@ -43,8 +43,8 @@
                 }
             },
             "final": {
-                "title": "Garbage Collection - Ďalšie parametre",
-                "description": "Pridané a zakázané dátumy sú zoznamy dátumov vo formáte yyyy-mm-dd, oddelených čiarkou. Viac info na https://github.com/bruxy70/Garbage-Collection",
+                "title": "Holidays - Ďalšie parametre",
+                "description": "Pridané a zakázané dátumy sú zoznamy dátumov vo formáte yyyy-mm-dd, oddelených čiarkou. Viac info na https://github.com/bruxy70/Holidays",
                 "data": {
                     "first_month": "Prvý mesiac zvozu",
                     "last_month": "Posledný mesiac zvozu",
@@ -86,14 +86,14 @@
             "date": "Zlý formát dátumu!"
         },
         "abort": {
-            "single_instance_allowed": "Je povolená iba jedna konfigurácia Garbage Collection."
+            "single_instance_allowed": "Je povolená iba jedna konfigurácia Holidays."
         }
     },
     "options": {
         "step": {
             "init": {
-                "title": "Garbage Collection - Nastavenia",
-                "description": "Zadaj meno senzora a nastav parametre. Viac na https://github.com/bruxy70/Garbage-Collection",
+                "title": "Holidays - Nastavenia",
+                "description": "Zadaj meno senzora a nastav parametre. Viac na https://github.com/bruxy70/Holidays",
                 "data": {
                     "hidden": "Skryť v kalendári",
                     "frequency": "Frekvencia",
@@ -110,7 +110,7 @@
                 }
             },
             "annual_group": {
-                "title": "Garbage Collection - Ďalšie parametre",
+                "title": "Holidays - Ďalšie parametre",
                 "description": "Zadej dátum zvozu (napr. 11/20 pre 20. november)",
                 "data": {
                     "date": "Dátum (mm/dd)",
@@ -118,8 +118,8 @@
                 }
             },
             "detail": {
-                "title": "Garbage Collection - Dni zvozu",
-                "description": "Vyber jeden alebo viac dní zvozu. Více na: https://github.com/bruxy70/Garbage-Collection",
+                "title": "Holidays - Dni zvozu",
+                "description": "Vyber jeden alebo viac dní zvozu. Více na: https://github.com/bruxy70/Holidays",
                 "data": {
                     "collection_days_mon": "Pondelok",
                     "collection_days_tue": "Útorok",
@@ -133,8 +133,8 @@
                 }
             },
             "final": {
-                "title": "Garbage Collection - Ďalšie parametre",
-                "description": "Pridané a zakázané dátumy sú zoznamy dátumov vo formáte yyyy-mm-dd, oddelených čiarkou. Viac info na https://github.com/bruxy70/Garbage-Collection",
+                "title": "Holidays - Ďalšie parametre",
+                "description": "Pridané a zakázané dátumy sú zoznamy dátumov vo formáte yyyy-mm-dd, oddelených čiarkou. Viac info na https://github.com/bruxy70/Holidays",
                 "data": {
                     "first_month": "Prvý mesiac zvozu",
                     "last_month": "Posledný mesiac zvozu",

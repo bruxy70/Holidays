@@ -3,7 +3,7 @@
         "step": {
             "user": {
                 "title": "Prügivedu - tühjendamiste ajad",
-                "description": "Sisesta nduri andmed. Rohkem infot leiab https://github.com/bruxy70/Garbage-Collection",
+                "description": "Sisesta nduri andmed. Rohkem infot leiab https://github.com/bruxy70/Holidays",
                 "data": {
                     "name": "Kuvatav nimi",
                     "hidden": "Ära näita kalendris",
@@ -31,7 +31,7 @@
             },
             "detail": {
                 "title": "Prügivedu - tühjendamise nädalapäevad",
-                "description": "Vali üks või mitu tühjendamise nädalapäeva. Rohkem teavet: https://github.com/bruxy70/Garbage-Collection",
+                "description": "Vali üks või mitu tühjendamise nädalapäeva. Rohkem teavet: https://github.com/bruxy70/Holidays",
                 "data": {
                     "collection_days_mon": "Esmaspäev",
                     "collection_days_tue": "Teisipäev",
@@ -45,7 +45,7 @@
             },
             "final": {
                 "title": "Prügivedu - täiendavad sätted",
-                "description": "Kaasatud ja välditavad kuupäevad on komadega eraldatud kuupäevade nimekiri järgmises formaadis: yyyy-mm-dd. Rohkem teavet https://github.com/bruxy70/Garbage-Collection",
+                "description": "Kaasatud ja välditavad kuupäevad on komadega eraldatud kuupäevade nimekiri järgmises formaadis: yyyy-mm-dd. Rohkem teavet https://github.com/bruxy70/Holidays",
                 "data": {
                     "first_month": "Esimene prügiveo kuu",
                     "last_month": "Viimane prügiveo kuu",
@@ -93,7 +93,7 @@
         "step": {
             "init": {
                 "title": "Prügivedu - tühjendamiste ajad",
-                "description": "Sisesta nduri andmed. Rohkem infot leiab https://github.com/bruxy70/Garbage-Collection",
+                "description": "Sisesta nduri andmed. Rohkem infot leiab https://github.com/bruxy70/Holidays",
                 "data": {
                     "name": "Kuvatav nimi",
                     "hidden": "Ära näita kalendris",
@@ -121,7 +121,7 @@
             },
             "detail": {
                 "title": "Prügivedu - tühjendamise nädalapäevad",
-                "description": "Vali üks või mitu tühjendamise nädalapäeva. Rohkem teavet: https://github.com/bruxy70/Garbage-Collection",
+                "description": "Vali üks või mitu tühjendamise nädalapäeva. Rohkem teavet: https://github.com/bruxy70/Holidays",
                 "data": {
                     "collection_days_mon": "Esmaspäev",
                     "collection_days_tue": "Teisipäev",
@@ -135,7 +135,7 @@
             },
             "final": {
                 "title": "Prügivedu - täiendavad sätted",
-                "description": "Kaasatud ja välditavad kuupäevad on komadega eraldatud kuupäevade nimekiri järgmises formaadis: yyyy-mm-dd. Rohkem teavet https://github.com/bruxy70/Garbage-Collection",
+                "description": "Kaasatud ja välditavad kuupäevad on komadega eraldatud kuupäevade nimekiri järgmises formaadis: yyyy-mm-dd. Rohkem teavet https://github.com/bruxy70/Holidays",
                 "data": {
                     "first_month": "Esimene prügiveo kuu",
                     "last_month": "Viimane prügiveo kuu",

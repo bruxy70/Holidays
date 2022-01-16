@@ -2,8 +2,8 @@
     "config": {
         "step": {
             "user": {
-                "title": "Garbage Collection - Fréquence de la collecte",
-                "description": "Définir le nom du capteur et configurer les paramètres du capteur. Plus d'info sur https://github.com/bruxy70/Garbage-Collection",
+                "title": "Holidays - Fréquence de la collecte",
+                "description": "Définir le nom du capteur et configurer les paramètres du capteur. Plus d'info sur https://github.com/bruxy70/Holidays",
                 "data": {
                     "name": "Friendly name",
                     "hidden": "Masquer dans le calendrier",
@@ -22,7 +22,7 @@
                 }
             },
             "annual_group": {
-                "title": "Garbage Collection - Paramètres additionnels",
+                "title": "Holidays - Paramètres additionnels",
                 "description": "Entrer la date du jour de collecte (Ex: 11/20 pour le 20 Novembre)",
                 "data": {
                     "date": "Date (mm/dd)",
@@ -30,8 +30,8 @@
                 }
             },
             "detail": {
-                "title": "Garbage Collection - Jours de collecte",
-                "description": "Choisir un ou plusieurs jours de collecte. Plus de détail ici: https://github.com/bruxy70/Garbage-Collection",
+                "title": "Holidays - Jours de collecte",
+                "description": "Choisir un ou plusieurs jours de collecte. Plus de détail ici: https://github.com/bruxy70/Holidays",
                 "data": {
                     "collection_days_mon": "Lundi",
                     "collection_days_tue": "Mardi",
@@ -40,12 +40,12 @@
                     "collection_days_fri": "Vendredi",
                     "collection_days_sat": "Samedi",
                     "collection_days_sun": "Dimanche",
-                    "force_week_order_numbers": "Nième occurrence du jour de la semaine dans un mois, au lieu du jour de la semaine dans la Nième semaine de chaque mois. Plus d'info sur https://github.com/bruxy70/Garbage-Collection#parameters-for-monthly-collection"
+                    "force_week_order_numbers": "Nième occurrence du jour de la semaine dans un mois, au lieu du jour de la semaine dans la Nième semaine de chaque mois. Plus d'info sur https://github.com/bruxy70/Holidays#parameters-for-monthly-collection"
                 }
             },
             "final": {
-                "title": "Garbage Collection - Paramètres additionnels",
-                "description": "Liste de dates, séparées par des virgules, d'inclusion et d'exclusion. Les dates sont au format yyyy-mm-dd. Plus d'info sur https://github.com/bruxy70/Garbage-Collection",
+                "title": "Holidays - Paramètres additionnels",
+                "description": "Liste de dates, séparées par des virgules, d'inclusion et d'exclusion. Les dates sont au format yyyy-mm-dd. Plus d'info sur https://github.com/bruxy70/Holidays",
                 "data": {
                     "first_month": "Premier mois de la collecte",
                     "last_month": "Dernier mois de la collecte",
@@ -83,14 +83,14 @@
             "date": "Format de date invalide !"
         },
         "abort": {
-            "single_instance_allowed": "Une seule configuration de Garbage Collection est autorisée"
+            "single_instance_allowed": "Une seule configuration de Holidays est autorisée"
         }
     },
     "options": {
         "step": {
             "init": {
-                "title": "Garbage Collection - Fréquence de la collecte",
-                "description": "Modifier les paramètres des capteurs. Plus d'infos sur https://github.com/bruxy70/Garbage-Collection",
+                "title": "Holidays - Fréquence de la collecte",
+                "description": "Modifier les paramètres des capteurs. Plus d'infos sur https://github.com/bruxy70/Holidays",
                 "data": {
                     "hidden": "Masquer dans le calendrier",
                     "frequency": "Fréquence",
@@ -108,7 +108,7 @@
                 }
             },
             "annual_group": {
-                "title": "Garbage Collection - Paramètres additionnels",
+                "title": "Holidays - Paramètres additionnels",
                 "description": "Entrer la date du jour de collecte (Ex: 11/20 pour le 20 Novembre)",
                 "data": {
                     "date": "Date (mm/dd)",
@@ -116,8 +116,8 @@
                 }
             },
             "detail": {
-                "title": "Garbage Collection - Collection days",
-                "description": "Choisir un ou plusieurs jours de collecte. Plus de détail ici: https://github.com/bruxy70/Garbage-Collection",
+                "title": "Holidays - Collection days",
+                "description": "Choisir un ou plusieurs jours de collecte. Plus de détail ici: https://github.com/bruxy70/Holidays",
                 "data": {
                     "collection_days_mon": "Lundi",
                     "collection_days_tue": "Mardi",
@@ -126,12 +126,12 @@
                     "collection_days_fri": "Vendredi",
                     "collection_days_sat": "Samedi",
                     "collection_days_sun": "Dimanche",
-                    "force_week_order_numbers": "Nième occurrence du jour de la semaine dans un mois, au lieu du jour de la semaine dans la Nième semaine de chaque mois. Plus d'info sur https://github.com/bruxy70/Garbage-Collection#parameters-for-monthly-collection"
+                    "force_week_order_numbers": "Nième occurrence du jour de la semaine dans un mois, au lieu du jour de la semaine dans la Nième semaine de chaque mois. Plus d'info sur https://github.com/bruxy70/Holidays#parameters-for-monthly-collection"
                 }
             },
             "final": {
-                "title": "Garbage Collection -  Paramètres additionnels",
-                "description": "Liste de dates, séparées par des virgules, d'inclusion et d'exclusion. Les dates sont au format yyyy-mm-dd. Plus d'info sur https://github.com/bruxy70/Garbage-Collection",
+                "title": "Holidays -  Paramètres additionnels",
+                "description": "Liste de dates, séparées par des virgules, d'inclusion et d'exclusion. Les dates sont au format yyyy-mm-dd. Plus d'info sur https://github.com/bruxy70/Holidays",
                 "data": {
                     "first_month": "Premier mois de la collecte",
                     "last_month": "Dernier mois de la collecte",

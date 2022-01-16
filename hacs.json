@@ -2,6 +2,6 @@
   "name": "Holidays",
   "zip_release": true,
   "filename": "holidays.zip",
-  "domains": ["sensor"],
+  "domains": ["calendar"],
   "homeassistant": "0.110.0"
 }

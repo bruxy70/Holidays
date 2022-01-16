@@ -3,7 +3,7 @@
         "step": {
             "user": {
                 "title": "Raccolta Differenziata - Frequenza di raccolta",
-                "description": "Immetti il nome del sensore e configura i suoi parametri. Maggiori informazioni su https://github.com/bruxy70/Garbage-Collection",
+                "description": "Immetti il nome del sensore e configura i suoi parametri. Maggiori informazioni su https://github.com/bruxy70/Holidays",
                 "data": {
                     "name": "Nome personalizzato",
                     "hidden": "Nascondi nel calendario",
@@ -31,7 +31,7 @@
             },
             "detail": {
                 "title": "Raccolta Differenziata - Giorni di raccolta",
-                "description": "Seleziona uno o più giorni di raccolta. Maggiori dettagli qui: https://github.com/bruxy70/Garbage-Collection",
+                "description": "Seleziona uno o più giorni di raccolta. Maggiori dettagli qui: https://github.com/bruxy70/Holidays",
                 "data": {
                     "collection_days_mon": "Lunedì",
                     "collection_days_tue": "Martedì",
@@ -45,7 +45,7 @@
             },
             "final": {
                 "title": "Raccolta Differenziata - Parametri aggiuntivi",
-                "description": "'Includi ed escludi date' sono liste di date separate da virgole, nel formato yyyy-mm-dd. Maggiori informazioni su https://github.com/bruxy70/Garbage-Collection",
+                "description": "'Includi ed escludi date' sono liste di date separate da virgole, nel formato yyyy-mm-dd. Maggiori informazioni su https://github.com/bruxy70/Holidays",
                 "data": {
                     "first_month": "Prima raccolta del mese",
                     "last_month": "Ultima raccolta del mese",
@@ -90,7 +90,7 @@
         "step": {
             "init": {
                 "title": "Raccolta Differenziata - Frequenza di raccolta",
-                "description": "Cambia i parametri del sensore. Maggiori informazioni su https://github.com/bruxy70/Garbage-Collection",
+                "description": "Cambia i parametri del sensore. Maggiori informazioni su https://github.com/bruxy70/Holidays",
                 "data": {
                     "hidden": "Nascondi nel calendario",
                     "frequency": "Frequenza",
@@ -117,7 +117,7 @@
             },
             "detail": {
                 "title": "Raccolta Differenziata - Giorni di raccolta",
-                "description": "Seleziona uno o più giorni di raccolta. Maggiori dettagli qui: https://github.com/bruxy70/Garbage-Collection",
+                "description": "Seleziona uno o più giorni di raccolta. Maggiori dettagli qui: https://github.com/bruxy70/Holidays",
                 "data": {
                     "collection_days_mon": "Lunedì",
                     "collection_days_tue": "Martedì",
@@ -131,7 +131,7 @@
             },
             "final": {
                 "title": "Raccolta Differenziata - Parametri aggiuntivi",
-                "description": "'Includi ed escludi date' sono liste di date separate da virgole, nel formato yyyy-mm-dd. Maggiori informazioni su https://github.com/bruxy70/Garbage-Collection",
+                "description": "'Includi ed escludi date' sono liste di date separate da virgole, nel formato yyyy-mm-dd. Maggiori informazioni su https://github.com/bruxy70/Holidays",
                 "data": {
                     "first_month": "Prima raccolta del mese",
                     "last_month": "Ultima raccolta del mese",
