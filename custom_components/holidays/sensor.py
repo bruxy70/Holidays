@@ -76,13 +76,13 @@ class Holidays(RestoreEntity):
         self._icon_tomorrow = config.get(CONF_ICON_TOMORROW)
         self._icon = self._icon_normal
 
-    async def async_load_holidays(self, today: date) -> None:
+    async def _async_load_holidays(self) -> None:
         """Load the holidays from from a date."""
         self._holidays_log = ""
         log = ""
         self._holidays.clear()
         if self._country_holidays is not None and self._country_holidays != "":
-            this_year = today.year
+            this_year = dt_util.now().date().year
             years = [this_year - 1, this_year, this_year + 1]
             _LOGGER.debug(
                 "(%s) Country Holidays with parameters: "
@@ -246,7 +246,7 @@ class Holidays(RestoreEntity):
         if not await self._async_ready_for_update() or not self.hass.is_running:
             return
         _LOGGER.debug("(%s) Calling update", self._name)
-        await self.async_load_holidays()
+        await self._async_load_holidays()
         await self.async_update_state()
 
     async def async_update_state(self) -> None:
