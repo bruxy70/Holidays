@@ -246,7 +246,7 @@ class Holidays(RestoreEntity):
         if not await self._async_ready_for_update() or not self.hass.is_running:
             return
         _LOGGER.debug("(%s) Calling update", self._name)
-        await self._async_load_holidays()
+        await self.async_load_holidays()
         await self.async_update_state()
 
     async def async_update_state(self) -> None:
