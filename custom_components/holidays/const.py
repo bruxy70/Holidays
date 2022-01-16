@@ -5,7 +5,7 @@ from typing import Any
 
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
-from homeassistant.const import ATTR_HIDDEN, CONF_ENTITIES, CONF_NAME
+from homeassistant.const import CONF_NAME
 
 from .config_singularity import config_singularity
 
@@ -45,7 +45,6 @@ DEFAULT_ICON_TOMORROW = "mdi:delete-circle"
 ICON = DEFAULT_ICON_NORMAL
 
 COUNTRY_CODES = [
-    "",
     "AR",
     "AT",
     "AU",
@@ -147,13 +146,6 @@ class configuration(config_singularity):
             "type": str,
             "validator": cv.string,
         },
-        ATTR_HIDDEN: {
-            "step": 1,
-            "method": vol.Optional,
-            "default": False,
-            "type": bool,
-            "validator": cv.boolean,
-        },
         CONF_ICON_NORMAL: {
             "step": 1,
             "method": vol.Optional,
@@ -177,7 +169,7 @@ class configuration(config_singularity):
         },
         CONF_COUNTRY: {
             "step": 1,
-            "method": vol.Optional,
+            "method": vol.Required,
             "type": vol.In(COUNTRY_CODES),
         },
         CONF_HOLIDAY_POP_NAMED: {
