@@ -70,7 +70,7 @@ class Holidays(RestoreEntity):
         self._last_updated = None
         self._days = None
         self._entities = config.get(CONF_ENTITIES)
-        self._state = "" if bool(self._verbose_state) else 2
+        self._state = 2
         self._icon_normal = config.get(CONF_ICON_NORMAL)
         self._icon_today = config.get(CONF_ICON_TODAY)
         self._icon_tomorrow = config.get(CONF_ICON_TOMORROW)
