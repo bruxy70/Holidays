@@ -2,6 +2,10 @@
 
 [![Buy me a coffee](https://img.shields.io/static/v1.svg?label=Buy%20me%20a%20coffee&message=🥨&color=black&logo=buy%20me%20a%20coffee&logoColor=white&labelColor=6f4e37)](https://www.buymeacoffee.com/3nXx0bJDP)
 
+{% if prerelease %}
+### NB!: This is a Beta version!
+{% endif %}
+
 # Holidays
 The `holidays` componnent is a **Home Assistant** integration that creates `calendar` entities with a list of public holidays in a country, based on the Python (Holidays)[https://github.com/dr-prodigy/python-holidays] library.
 It's primary purpose is to work with `garbage_collection` integration to automatically move entities with `manual_update` automation blueprints. But it can also be used independently to show next public holiday in given country (or multiple countries).
