@@ -183,12 +183,6 @@ class configuration(config_singularity):
             "type": str,
             "validator": cv.icon,
         },
-        CONF_ENTITIES: {
-            "step": 1,
-            "method": vol.Optional,
-            "type": str,
-            "validator": cv.entity_ids,
-        },
         CONF_COUNTRY: {
             "step": 1,
             "method": vol.Optional,
