@@ -81,14 +81,14 @@ class Holidays(RestoreEntity):
         self._holidays_log = ""
         log = ""
         self._holidays.clear()
-        if self._country_holidays is not None and self._country_holidays != "":
+        if self._country is not None and self._country != "":
             this_year = dt_util.now().date().year
             years = [this_year - 1, this_year, this_year + 1]
             _LOGGER.debug(
                 "(%s) Country Holidays with parameters: "
                 "country: %s, prov: %s, state: %s, observed: %s",
                 self._name,
-                self._country_holidays,
+                self._country,
                 self._holiday_prov,
                 self._holiday_state,
                 self._holiday_observed,
@@ -104,7 +104,7 @@ class Holidays(RestoreEntity):
                 and not self._holiday_observed
             ):
                 kwargs["observed"] = self._holiday_observed  # type: ignore
-            hol = holidays.CountryHoliday(self._country_holidays, **kwargs)
+            hol = holidays.CountryHoliday(self._country, **kwargs)
             if self._holiday_pop_named is not None:
                 for pop in self._holiday_pop_named:
                     try:
@@ -120,7 +120,7 @@ class Holidays(RestoreEntity):
                 _LOGGER.error(
                     "(%s) Invalid country code (%s)",
                     self._name,
-                    self._country_holidays,
+                    self._country,
                 )
             _LOGGER.debug("(%s) Found these holidays: %s", self._name, log)
 
