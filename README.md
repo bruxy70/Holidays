@@ -35,7 +35,7 @@ It's primary purpose is to work with `garbage_collection` integration to automat
 ## Parameters
 |Attribute |Required|Description
 |:----------|----------|------------
-| `Country` | Yes | Country holidays - the country code (see [holidays](https://github.com/dr-prodigy/python-holidays) for the list of valid country codes).<br/>*Example:* `US` 
+| `country` | Yes | Country holidays - the country code (see [holidays](https://github.com/dr-prodigy/python-holidays) for the list of valid country codes).<br/>*Example:* `US` 
 | `holiday_pop_named` | No | Ignore holidays (list of holiday names) *Example:* `"Columbus Day"`, `"Veterans Day"`
 | `prov` | No | Province (see [holidays](https://github.com/dr-prodigy/python-holidays) ).
 | `state` | No | State (see [holidays](https://github.com/dr-prodigy/python-holidays) ).
