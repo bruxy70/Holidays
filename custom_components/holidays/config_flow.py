@@ -2,10 +2,8 @@
 import logging
 import uuid
 
-# from datetime import datetime
 from typing import Dict
 
-# import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.const import CONF_NAME
