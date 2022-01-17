@@ -47,7 +47,7 @@ class holidays_shared:
             del self._data[CONF_NAME]
 
     def step1_user_init(self, user_input: Dict, defaults=None):
-        """User init"""
+        """User init."""
         self.errors = {}
         if user_input is not None:
             validation = config_definition.compile_schema(step=1)
@@ -108,7 +108,6 @@ class HolidaysFlowHandler(config_entries.ConfigFlow):
         self, user_input={}
     ):  # pylint: disable=dangerous-default-value
         """Step 1 - user init."""
-
         if self.shared_class.step1_user_init(user_input):
             return self.async_create_entry(
                 title=self.shared_class.name, data=self.shared_class.data

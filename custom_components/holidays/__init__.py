@@ -4,9 +4,7 @@ import logging
 from datetime import timedelta
 
 import homeassistant.helpers.config_validation as cv
-import homeassistant.util.dt as dt_util
 import voluptuous as vol
-from dateutil.relativedelta import relativedelta
 from homeassistant import config_entries
 
 from .const import CALENDAR_PLATFORM, CONF_CALENDARS, DOMAIN, configuration
@@ -31,7 +29,6 @@ CONFIG_SCHEMA = vol.Schema(
 
 async def async_setup(hass, config):
     """Set up this component using YAML."""
-
     if config.get(DOMAIN) is None:
         # We get here if the integration is set up using config flow
         return True
