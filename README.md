@@ -12,7 +12,7 @@ It's primary purpose is to work with `garbage_collection` integration to automat
   + [Manual Installation](#manual-installation)
   + [Installation via Home Assistant Community Store (HACS)](#installation-via-home-assistant-community-store-hacs)
 * [Parameters](#Parameters)
-* [Attributes](#Attributes)
+* [State and Attributes](#state-and-attributes)
 
 ## Installation
 
@@ -33,7 +33,7 @@ It's primary purpose is to work with `garbage_collection` integration to automat
 6. Configure the parameters
 
 ## Parameters
-|Attribute |Required|Description
+|Parameter |Required|Description
 |:----------|----------|------------
 | `country` | Yes | Country holidays - the country code (see [holidays](https://github.com/dr-prodigy/python-holidays) for the list of valid country codes).<br/>*Example:* `US` 
 | `holiday_pop_named` | No | Ignore holidays (list of holiday names) *Example:* `"Columbus Day"`, `"Veterans Day"`
@@ -41,8 +41,8 @@ It's primary purpose is to work with `garbage_collection` integration to automat
 | `state` | No | State (see [holidays](https://github.com/dr-prodigy/python-holidays) ).
 | `observed` | No | Observed (see [holidays](https://github.com/dr-prodigy/python-holidays) ).
 
-## Attributes
-### State
+## State and Attributes
+### `state`
 The State contains the number of days to the next country holiday. It is `0` if today is a public holiday.
 
 ### Attributes
