@@ -6,7 +6,6 @@
                 "description": "Enter the sensor name and configure sensor parameters. More info on https://github.com/bruxy70/Holidays",
                 "data": {
                     "name": "Friendly name",
-                    "hidden": "Hide in calendar",
                     "icon_normal": "Icon (mdi:trash-can) - optional",
                     "icon_tomorrow": "Icon collection tomorrow (mdi:delete-restore) - optional",
                     "icon_today": "Icon collection today (mdi:delete-circle) - optional",
@@ -32,7 +31,6 @@
                 "title": "Holidays",
                 "description": "Change sensor parameters. More info on https://github.com/bruxy70/Holidays",
                 "data": {
-                    "hidden": "Hide in calendar",
                     "icon_normal": "Icon (mdi:trash-can) - optional",
                     "icon_tomorrow": "Icon collection tomorrow (mdi:delete-restore) - optional",
                     "icon_today": "Icon collection today (mdi:delete-circle) - optional",
