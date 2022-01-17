@@ -11,12 +11,7 @@ from homeassistant import config_entries
 from homeassistant.const import CONF_ENTITY_ID, CONF_NAME
 from homeassistant.helpers import discovery
 
-from .const import (
-    CONF_CALENDARS,
-    DOMAIN,
-    CALENDAR_PLATFORM,
-    configuration,
-)
+from .const import CALENDAR_PLATFORM, CONF_CALENDARS, DOMAIN, configuration
 
 MIN_TIME_BETWEEN_UPDATES = timedelta(seconds=30)
 
