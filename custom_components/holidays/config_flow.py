@@ -1,7 +1,6 @@
 """Adds config flow for GarbageCollection."""
 import logging
 import uuid
-
 from typing import Dict
 
 import voluptuous as vol

@@ -8,8 +8,6 @@ import homeassistant.util.dt as dt_util
 import voluptuous as vol
 from dateutil.relativedelta import relativedelta
 from homeassistant import config_entries
-from homeassistant.const import CONF_ENTITY_ID, CONF_NAME
-from homeassistant.helpers import discovery
 
 from .const import CALENDAR_PLATFORM, CONF_CALENDARS, DOMAIN, configuration
 
