@@ -3,10 +3,11 @@ import logging
 from datetime import date, datetime, timedelta
 from typing import Optional
 
-import holidays
 import homeassistant.util.dt as dt_util
 from homeassistant.const import ATTR_HIDDEN, CONF_ENTITIES, CONF_NAME
 from homeassistant.helpers.restore_state import RestoreEntity
+
+import holidays
 
 from .const import (
     ATTR_HOLIDAYS,
@@ -94,7 +95,7 @@ class Holidays(RestoreEntity):
                 and not self._holiday_observed
             ):
                 kwargs["observed"] = self._holiday_observed  # type: ignore
-            hol = holidays.CountryHoliday(self._country, **kwargs) #type: ignore
+            hol = holidays.CountryHoliday(self._country, **kwargs)  # type: ignore
             if self._holiday_pop_named is not None:
                 for pop in self._holiday_pop_named:
                     try:
