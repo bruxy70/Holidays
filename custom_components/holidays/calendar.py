@@ -3,11 +3,10 @@ import logging
 from datetime import date, datetime, timedelta
 from typing import Optional
 
+import holidays
 import homeassistant.util.dt as dt_util
 from homeassistant.const import ATTR_HIDDEN, CONF_ENTITIES, CONF_NAME
 from homeassistant.helpers.restore_state import RestoreEntity
-
-import holidays
 
 from .const import (
     ATTR_HOLIDAYS,
