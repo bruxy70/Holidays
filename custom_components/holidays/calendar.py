@@ -95,7 +95,7 @@ class Holidays(RestoreEntity):
                 and not self._holiday_observed
             ):
                 kwargs["observed"] = self._holiday_observed  # type: ignore
-            hol = holidays.CountryHoliday(self._country, **kwargs)
+            hol = holidays.CountryHoliday(self._country, **kwargs)  # type: ignore
             if self._holiday_pop_named is not None:
                 for pop in self._holiday_pop_named:
                     try:

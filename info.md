@@ -11,16 +11,16 @@ The `holidays` componnent is a **Home Assistant** integration that creates `cale
 It's primary purpose is to work with `garbage_collection` integration to automatically move entities with `manual_update` automation blueprints. But it can also be used independently to show next public holiday in given country (or multiple countries).
 
 ## Parameters
-|Attribute |Required|Description
+|Parameter |Required|Description
 |:----------|----------|------------
-| `Country` | Yes | Country holidays - the country code (see [holidays](https://github.com/dr-prodigy/python-holidays) for the list of valid country codes).<br/>*Example:* `US` 
+| `country` | Yes | Country holidays - the country code (see [holidays](https://github.com/dr-prodigy/python-holidays) for the list of valid country codes).<br/>*Example:* `US` 
 | `holiday_pop_named` | No | Ignore holidays (list of holiday names) *Example:* `"Columbus Day"`, `"Veterans Day"`
 | `prov` | No | Province (see [holidays](https://github.com/dr-prodigy/python-holidays) ).
 | `state` | No | State (see [holidays](https://github.com/dr-prodigy/python-holidays) ).
 | `observed` | No | Observed (see [holidays](https://github.com/dr-prodigy/python-holidays) ).
 
-## Attributes
-### State
+## State and Attributes
+### `state`
 The State contains the number of days to the next country holiday. It is `0` if today is a public holiday.
 
 ### Attributes
