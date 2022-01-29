@@ -97,7 +97,6 @@ COUNTRY_CODES = [
     "TN",
     "TW",
     "UA",
-    "UK",
     "US",
     "ZA",
     "England",
