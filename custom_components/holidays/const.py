@@ -16,6 +16,7 @@ CALENDAR_PLATFORM = "calendar"
 ATTRIBUTION = "Data from this is provided by holidays."
 
 ATTR_NEXT_DATE = "next_date"
+ATTR_NEXT_HOLIDAY = "next_holiday"
 ATTR_LAST_UPDATED = "last_updated"
 ATTR_HOLIDAYS = "holidays"
 

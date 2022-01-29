@@ -3,16 +3,16 @@ import logging
 from datetime import date, datetime, timedelta
 from typing import Optional
 
+import holidays
 import homeassistant.util.dt as dt_util
 from homeassistant.const import ATTR_HIDDEN, CONF_ENTITIES, CONF_NAME
 from homeassistant.helpers.restore_state import RestoreEntity
-
-import holidays
 
 from .const import (
     ATTR_HOLIDAYS,
     ATTR_LAST_UPDATED,
     ATTR_NEXT_DATE,
+    ATTR_NEXT_HOLIDAY,
     CALENDAR_PLATFORM,
     CONF_COUNTRY,
     CONF_HOLIDAY_POP_NAMED,
@@ -59,6 +59,7 @@ class Holidays(RestoreEntity):
         self._holiday_names = {}
         self._event = None
         self._next_date = None
+        self._next_holiday = None
         self._last_updated = None
         self._entities = config.get(CONF_ENTITIES)
         self._date_format = "%d-%b-%Y"
@@ -174,10 +175,12 @@ class Holidays(RestoreEntity):
         res = {}
         if self._next_date is None:
             res[ATTR_NEXT_DATE] = None
+            res[ATTR_NEXT_HOLIDAY] = None
         else:
             res[ATTR_NEXT_DATE] = datetime(
                 self._next_date.year, self._next_date.month, self._next_date.day
             ).astimezone()
+            res[ATTR_NEXT_HOLIDAY] = self._next_holiday
         res[ATTR_LAST_UPDATED] = self._last_updated
         holidays = ""
         for key, value in self._holiday_names.items():
@@ -199,7 +202,7 @@ class Holidays(RestoreEntity):
             f"config: {self.config}]"
         )
 
-    async def async_get_events(self, hass, start_datetime, end_datetime):
+    async def async_get_events(self, _, start_datetime, end_datetime):
         """Get all tasks in a specific time frame."""
         events = []
         start_date = start_datetime.date()
@@ -242,7 +245,7 @@ class Holidays(RestoreEntity):
             return d
         return None
 
-    def holiday_name(self, holiday_date: date):
+    def holiday_name(self, holiday_date: Optional[date]):
         """Get holiday name for a date."""
         try:
             return self._holiday_names[f"{holiday_date}"]
@@ -263,6 +266,7 @@ class Holidays(RestoreEntity):
         now = dt_util.now()
         today = now.date()
         self._next_date = await self.async_next_date(today)
+        self._next_holiday = self.holiday_name(self._next_date)
         self._last_updated = now
         if self._next_date is not None:
             _LOGGER.debug(
