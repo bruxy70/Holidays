@@ -48,5 +48,6 @@ The State contains the number of days to the next country holiday. It is `0` if 
 ### Attributes
 | Attribute | Description
 |:----------|------------
-| `next_date` | The date of holiday
+| `next_date` | The date of the next holiday
+| `next_holiday` | The name of the next holiday
 | `holidays` | List of used country (last year, this year and next year). This is used by the `garbage_collection` blueprints to offset collections if they fall on a public holiday (or if holiday was earlier on in the week)
