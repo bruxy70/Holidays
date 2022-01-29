@@ -4,8 +4,8 @@
 
 # Holidays
 
-The `holidays` componnent is a **Home Assistant** integration that creates `calendar` entities with a list of public holidays in a country, based on the Python [Holidays](https://github.com/dr-prodigy/python-holidays) library.
-It's primary purpose is to work with [garbage_collection](https://github.com/bruxy70/Garbage-Collection#public-holidays) integration to automatically move entities with `manual_update` automation **blueprints**. But it can also be used independently to show next public holiday in given country (or multiple countries).
+The `holidays` component is a **Home Assistant** integration that creates `calendar` entities with a list of public holidays in a country, based on the Python [Holidays](https://github.com/dr-prodigy/python-holidays) library.
+It's primary purpose is to work with [garbage_collection](https://github.com/bruxy70/Garbage-Collection#public-holidays) integration to automatically move entities with `manual_update` automation **blueprints**. But it can also be used independently to show the next public holiday in a given country (or multiple countries).
 
 ## Table of Contents
 * [Installation](#installation)
@@ -50,4 +50,4 @@ The State contains the number of days to the next country holiday. It is `0` if 
 |:----------|------------
 | `next_date` | The date of the next holiday
 | `next_holiday` | The name of the next holiday
-| `holidays` | List of used country (last year, this year and next year). This is used by the `garbage_collection` blueprints to offset collections if they fall on a public holiday (or if holiday was earlier on in the week)
+| `holidays` | List of country holidays (last year, this year, and next year). This is used by the `garbage_collection` blueprints to offset collections if they fall on a public holiday (or if the holiday was earlier on in the week)
