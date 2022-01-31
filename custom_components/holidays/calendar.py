@@ -107,7 +107,7 @@ class Holidays(RestoreEntity):
                     except Exception as err:
                         _LOGGER.error("(%s) Holiday not removed (%s)", self._name, err)
             try:
-                for holiday_date, holiday_name in hol.items():
+                for holiday_date, holiday_name in sorted(hol.items()):
                     self._holidays.append(holiday_date)
                     self._holiday_names[f"{holiday_date}"] = holiday_name
                     log += f"\n  {holiday_date}: {holiday_name}"
