@@ -92,6 +92,7 @@ COUNTRY_CODES = [
     "PTE",
     "RU",
     "SE",
+    "SG", 
     "SI",
     "SK",
     "TN",
