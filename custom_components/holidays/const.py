@@ -92,7 +92,7 @@ COUNTRY_CODES = [
     "PTE",
     "RU",
     "SE",
-    "SG", 
+    "SG",
     "SI",
     "SK",
     "TN",
@@ -136,6 +136,13 @@ def month_day_text(value: Any) -> str:
         return datetime.strptime(value, "%m/%d").date().strftime("%m/%d")
     except ValueError:
         raise vol.Invalid(f"Invalid date: {value}")
+
+
+def string_to_list(string) -> list:
+    """Convert comma separated text to list."""
+    if string is None or string == "":
+        return []
+    return list(map(lambda x: x.strip("'\" "), string.split(",")))
 
 
 class configuration(config_singularity):

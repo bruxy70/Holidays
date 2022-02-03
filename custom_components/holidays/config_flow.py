@@ -8,14 +8,7 @@ from homeassistant import config_entries
 from homeassistant.const import CONF_NAME
 from homeassistant.core import callback
 
-from . import config_definition
-from .const import (
-    CONF_HOLIDAY_POP_NAMED,
-    CONF_ICON_NORMAL,
-    CONF_ICON_TODAY,
-    CONF_ICON_TOMORROW,
-    DOMAIN,
-)
+from . import config_definition, const
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -54,18 +47,18 @@ class holidays_shared:
             # Name is not used in OptionsFlow
             if defaults is not None and CONF_NAME in validation:
                 del validation[CONF_NAME]
-            if CONF_HOLIDAY_POP_NAMED in user_input:
-                user_input[CONF_HOLIDAY_POP_NAMED] = string_to_list(
-                    user_input[CONF_HOLIDAY_POP_NAMED]
+            if const.CONF_HOLIDAY_POP_NAMED in user_input:
+                user_input[const.CONF_HOLIDAY_POP_NAMED] = const.string_to_list(
+                    user_input[const.CONF_HOLIDAY_POP_NAMED]
                 )
             try:
                 _ = vol.Schema(validation)(user_input)
             except vol.Invalid as exception:
                 error = str(exception)
                 if (
-                    CONF_ICON_NORMAL in error
-                    or CONF_ICON_TODAY in error
-                    or CONF_ICON_TOMORROW in error
+                    const.CONF_ICON_NORMAL in error
+                    or const.CONF_ICON_TODAY in error
+                    or const.CONF_ICON_TOMORROW in error
                 ):
                     self.errors["base"] = "icon"
                 else:
@@ -79,7 +72,7 @@ class holidays_shared:
         elif defaults is not None:
             config_definition.reset_defaults()
             config_definition.set_defaults(1, defaults)
-            config_definition.join_list(CONF_HOLIDAY_POP_NAMED)
+            config_definition.join_list(const.CONF_HOLIDAY_POP_NAMED)
         self.data_schema = config_definition.compile_config_flow(step=1)
         # Do not show name for Options_Flow. The name cannot be changed here
         if defaults is not None and CONF_NAME in self.data_schema:
@@ -92,7 +85,7 @@ class holidays_shared:
         return self._data
 
 
-@config_entries.HANDLERS.register(DOMAIN)
+@config_entries.HANDLERS.register(const.DOMAIN)
 class HolidaysFlowHandler(config_entries.ConfigFlow):
     """Config flow for holidays."""
 
@@ -174,10 +167,3 @@ class EmptyOptions(config_entries.OptionsFlow):
     def __init__(self, config_entry):
         """Just set the config_entry parameter."""
         self.config_entry = config_entry
-
-
-def string_to_list(string) -> list:
-    """Convert comma separated text to list."""
-    if string is None or string == "":
-        return []
-    return list(map(lambda x: x.strip("'\" "), string.split(",")))
