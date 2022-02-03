@@ -118,13 +118,13 @@ class Holidays(RestoreEntity):
             self.hass.data[const.DOMAIN][const.CALENDAR_PLATFORM] = {}
         self.hass.data[const.DOMAIN][const.CALENDAR_PLATFORM][self.entity_id] = self
 
-        device_registry = dr.async_get(self.hass)
-        device_registry.async_get_or_create(
-            config_entry_id=self.config_entry.entry_id,
-            identifiers={(const.DOMAIN, self.unique_id)},
-            name=self.name,
-            manufacturer="bruxy70",
-        )
+        # device_registry = dr.async_get(self.hass)
+        # device_registry.async_get_or_create(
+        #     config_entry_id=self.config_entry.entry_id,
+        #     identifiers={(const.DOMAIN, self.unique_id)},
+        #     name=self.name,
+        #     manufacturer="bruxy70",
+        # )
 
     async def async_will_remove_from_hass(self):
         """When calendar is added to hassio, remove it."""
