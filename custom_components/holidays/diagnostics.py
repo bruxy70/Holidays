@@ -12,7 +12,7 @@ async def async_get_config_entry_diagnostics(
     entry: ConfigEntry,
 ) -> Dict[str, Any]:
     """Return diagnostics for a config entry."""
-    entities = hass.data[const.DOMAIN][const.SENSOR_PLATFORM]
+    entities = hass.data[const.DOMAIN][const.CALENDAR_PLATFORM]
     entity_data = [
         entities[entity]
         for entity in entities
