@@ -7,6 +7,8 @@ import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
 from homeassistant import config_entries
 
+import holidays
+
 from . import const
 
 MIN_TIME_BETWEEN_UPDATES = timedelta(seconds=30)
@@ -94,3 +96,16 @@ async def update_listener(hass, entry):
     hass.async_add_job(
         hass.config_entries.async_forward_entry_setup(entry, const.CALENDAR_PLATFORM)
     )
+
+
+def create_holidays(years: list, country: str, state: str, prov: str, observed: bool):
+    """Create holidays from parameters"""
+    kwargs = {"years": years}
+    if state != "":
+        kwargs["state"] = state
+    if prov != "":
+        kwargs["prov"] = prov
+    kwargs["observed"] = observed
+    if country == "SE":
+        return holidays.Sweden(include_sundays=False, **kwargs)  # type: ignore
+    return holidays.CountryHoliday(country, **kwargs)  # type: ignore

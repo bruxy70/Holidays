@@ -7,8 +7,6 @@ import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
 from homeassistant.const import CONF_NAME
 
-from .config_singularity import config_singularity
-
 """Constants for holidays."""
 # Base component constants
 DOMAIN = "holidays"
@@ -40,9 +38,9 @@ CONF_CALENDARS = "calendars"
 DEFAULT_NAME = DOMAIN
 
 # Icons
-DEFAULT_ICON_NORMAL = "mdi:trash-can"
-DEFAULT_ICON_TODAY = "mdi:delete-restore"
-DEFAULT_ICON_TOMORROW = "mdi:delete-circle"
+DEFAULT_ICON_NORMAL = "mdi:calendar-blank"
+DEFAULT_ICON_TODAY = "mdi:calendar-arrow-right"
+DEFAULT_ICON_TOMORROW = "mdi:calendar-check"
 ICON = DEFAULT_ICON_NORMAL
 
 COUNTRY_CODES = [
@@ -90,6 +88,7 @@ COUNTRY_CODES = [
     "PL",
     "PT",
     "PTE",
+    "RO",
     "RU",
     "SE",
     "SG",
@@ -143,72 +142,3 @@ def string_to_list(string) -> list:
     if string is None or string == "":
         return []
     return list(map(lambda x: x.strip("'\" "), string.split(",")))
-
-
-class configuration(config_singularity):
-    """Store validation schema for holidays configuration.
-
-    Type and validation seems duplicate, but I cannot use custom validators in ShowForm
-    It calls convert from voluptuous-serialize that does not accept them
-    so I pass it twice - once the type, then the validator.
-    """
-
-    options = {
-        CONF_NAME: {
-            "step": 1,
-            "method": vol.Required,
-            "type": str,
-            "validator": cv.string,
-        },
-        CONF_ICON_NORMAL: {
-            "step": 1,
-            "method": vol.Optional,
-            "default": DEFAULT_ICON_NORMAL,
-            "type": str,
-            "validator": cv.icon,
-        },
-        CONF_ICON_TODAY: {
-            "step": 1,
-            "method": vol.Optional,
-            "default": DEFAULT_ICON_TODAY,
-            "type": str,
-            "validator": cv.icon,
-        },
-        CONF_ICON_TOMORROW: {
-            "step": 1,
-            "method": vol.Optional,
-            "default": DEFAULT_ICON_TOMORROW,
-            "type": str,
-            "validator": cv.icon,
-        },
-        CONF_COUNTRY: {
-            "step": 1,
-            "method": vol.Required,
-            "type": vol.In(COUNTRY_CODES),
-        },
-        CONF_HOLIDAY_POP_NAMED: {
-            "step": 1,
-            "method": vol.Optional,
-            "type": str,
-            "validator": vol.All(cv.ensure_list, [str]),
-        },
-        CONF_PROV: {
-            "step": 1,
-            "method": vol.Optional,
-            "type": str,
-            "validator": cv.string,
-        },
-        CONF_STATE: {
-            "step": 1,
-            "method": vol.Optional,
-            "type": str,
-            "validator": cv.string,
-        },
-        CONF_OBSERVED: {
-            "step": 1,
-            "method": vol.Optional,
-            "default": True,
-            "type": bool,
-            "validator": cv.boolean,
-        },
-    }

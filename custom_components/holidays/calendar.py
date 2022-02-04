@@ -3,12 +3,11 @@ import logging
 from datetime import date, datetime, timedelta
 from typing import Optional
 
-import holidays
 import homeassistant.util.dt as dt_util
 from homeassistant.const import ATTR_HIDDEN, CONF_ENTITIES, CONF_NAME
 from homeassistant.helpers.restore_state import RestoreEntity
 
-from . import const
+from . import const, create_holidays
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -40,10 +39,10 @@ class Holidays(RestoreEntity):
             else config.get(CONF_NAME)
         )
         self._hidden = config.get(ATTR_HIDDEN, False)
-        self._country = config.get(const.CONF_COUNTRY)
+        self._country = config.get(const.CONF_COUNTRY, "")
         self._holiday_pop_named = config.get(const.CONF_HOLIDAY_POP_NAMED)
-        self._holiday_prov = config.get(const.CONF_PROV)
-        self._holiday_state = config.get(const.CONF_STATE)
+        self._holiday_prov = config.get(const.CONF_PROV, "")
+        self._holiday_state = config.get(const.CONF_STATE, "")
         self._holiday_observed = config.get(const.CONF_OBSERVED, True)
         self._holidays = []
         self._holiday_names = {}
@@ -75,21 +74,13 @@ class Holidays(RestoreEntity):
                 self._holiday_state,
                 self._holiday_observed,
             )
-            kwargs = {"years": years}
-            if self._holiday_state is not None and self._holiday_state != "":
-                kwargs["state"] = self._holiday_state
-            if self._holiday_prov is not None and self._holiday_prov != "":
-                kwargs["prov"] = self._holiday_prov
-            if (
-                self._holiday_observed is not None
-                and isinstance(self._holiday_observed, bool)
-                and not self._holiday_observed
-            ):
-                kwargs["observed"] = self._holiday_observed  # type: ignore
-            if self._country == "SE":
-                hol = holidays.Sweden(include_sundays=False, **kwargs)  # type: ignore
-            else:
-                hol = holidays.CountryHoliday(self._country, **kwargs)  # type: ignore
+            hol = create_holidays(
+                years,
+                self._country,
+                self._holiday_state,
+                self._holiday_prov,
+                self._holiday_observed,
+            )
             if self._holiday_pop_named is not None:
                 for pop in self._holiday_pop_named:
                     try:
