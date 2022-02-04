@@ -8,6 +8,7 @@ import holidays
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
 from homeassistant import config_entries
+from homeassistant.const import CONF_NAME
 
 from . import const
 
@@ -17,7 +18,7 @@ _LOGGER = logging.getLogger(__name__)
 
 CALENDAR_SCHEMA = vol.Schema(
     {
-        vol.Required(const.CONF_NAME): str,
+        vol.Required(CONF_NAME): str,
         vol.Optional(const.CONF_ICON_NORMAL): cv.icon,
         vol.Optional(const.CONF_ICON_TODAY): cv.icon,
         vol.Optional(const.CONF_ICON_TOMORROW): cv.icon,
