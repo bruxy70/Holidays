@@ -1,13 +1,13 @@
 """Component to integrate with holidays."""
+from __future__ import absolute_import
 
 import logging
 from datetime import timedelta
 
+import holidays
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
 from homeassistant import config_entries
-
-import holidays
 
 from . import const
 
