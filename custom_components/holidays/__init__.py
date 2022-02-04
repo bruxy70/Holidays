@@ -3,6 +3,7 @@ from __future__ import absolute_import
 
 import logging
 from datetime import timedelta
+from typing import Any, Dict
 
 import holidays
 import homeassistant.helpers.config_validation as cv
@@ -101,7 +102,7 @@ async def update_listener(hass, entry):
 
 def create_holidays(years: list, country: str, state: str, prov: str, observed: bool):
     """Create holidays from parameters."""
-    kwargs = {"years": years}
+    kwargs: Dict[str, Any] = {"years": years}
     if state != "":
         kwargs["state"] = state
     if prov != "":
