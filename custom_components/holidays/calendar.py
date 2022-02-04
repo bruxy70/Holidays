@@ -6,7 +6,6 @@ from typing import Optional
 import holidays
 import homeassistant.util.dt as dt_util
 from homeassistant.const import ATTR_HIDDEN, CONF_ENTITIES, CONF_NAME
-from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers.restore_state import RestoreEntity
 
 from . import const
@@ -20,6 +19,7 @@ THROTTLE_INTERVAL = timedelta(seconds=60)
 async def async_setup_platform(hass, _, async_add_entities, discovery_info=None):
     """Create garbage collection entities defined in YAML and add them to HA."""
     # async_add_entities([Holidays(hass, discovery_info)], True)
+    return
 
 
 async def async_setup_entry(hass, config_entry, async_add_devices):
@@ -117,14 +117,6 @@ class Holidays(RestoreEntity):
         if const.CALENDAR_PLATFORM not in self.hass.data[const.DOMAIN]:
             self.hass.data[const.DOMAIN][const.CALENDAR_PLATFORM] = {}
         self.hass.data[const.DOMAIN][const.CALENDAR_PLATFORM][self.entity_id] = self
-
-        # device_registry = dr.async_get(self.hass)
-        # device_registry.async_get_or_create(
-        #     config_entry_id=self.config_entry.entry_id,
-        #     identifiers={(const.DOMAIN, self.unique_id)},
-        #     name=self.name,
-        #     manufacturer="bruxy70",
-        # )
 
     async def async_will_remove_from_hass(self):
         """When calendar is added to hassio, remove it."""
