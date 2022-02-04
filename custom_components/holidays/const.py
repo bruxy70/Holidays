@@ -3,9 +3,7 @@
 from datetime import datetime
 from typing import Any
 
-import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
-from homeassistant.const import CONF_NAME
 
 """Constants for holidays."""
 # Base component constants
