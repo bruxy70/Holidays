@@ -152,7 +152,7 @@ class HolidaysFlowHandler(config_entries.ConfigFlow):
     async def async_step_detail(
         self, user_input={}, re_entry=True
     ):  # pylint: disable=dangerous-default-value
-        """Step 2 - enter countries to pop"""
+        """Step 2 - enter countries to pop."""
         self.shared_class.hass = self.hass
         self.shared_class.step2_detail(user_input)
         if re_entry:

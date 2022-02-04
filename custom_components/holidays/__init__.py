@@ -100,7 +100,7 @@ async def update_listener(hass, entry):
 
 
 def create_holidays(years: list, country: str, state: str, prov: str, observed: bool):
-    """Create holidays from parameters"""
+    """Create holidays from parameters."""
     kwargs = {"years": years}
     if state != "":
         kwargs["state"] = state
