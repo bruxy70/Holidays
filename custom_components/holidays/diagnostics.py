@@ -18,10 +18,12 @@ async def async_get_config_entry_diagnostics(
         for entity in entities
         if entities[entity].unique_id == entry.data["unique_id"]
     ][0]
+    attributes = entity_data.extra_state_attributes
+    attributes["holidays"] = entity_data.holidays
     data = {
         "entity_id": entity_data.entity_id,
         "state": entity_data.state,
-        "attributes": entity_data.extra_state_attributes,
+        "attributes": attributes,
         "config_entry": entry.as_dict(),
     }
     return data

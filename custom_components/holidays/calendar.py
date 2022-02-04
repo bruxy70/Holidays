@@ -172,6 +172,11 @@ class Holidays(RestoreEntity):
         return res
 
     @property
+    def holidays(self):
+        """Return the dictionary of holidays."""
+        return self._holiday_names
+
+    @property
     def device_class(self):
         """Return the class of the calendar."""
         return const.DEVICE_CLASS
@@ -179,7 +184,7 @@ class Holidays(RestoreEntity):
     def __repr__(self):
         """Return main calendar parameters."""
         return (
-            f"Holidays[ name: {self.name}, "
+            f"Holidays[name: {self.name}, "
             f"entity_id: {self.entity_id}, "
             f"state: {self.state}"
             f"attributes: {self.extra_state_attributes}]"

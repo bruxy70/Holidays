@@ -13,8 +13,6 @@ from homeassistant.core import callback
 
 from . import const, create_holidays
 
-_LOGGER = logging.getLogger(__name__)
-
 
 class HolidaysShared:
     """Store configuration for both YAML and config_flow."""
@@ -104,6 +102,9 @@ class HolidaysShared:
         self.errors = {}
         self.data_schema = {}
 
+        if user_input is not None and user_input != {}:
+            self.update_data(user_input)
+            return True
         hol = create_holidays(
             [dt_util.now().date().year],
             self._data.get(const.CONF_COUNTRY, ""),
@@ -112,9 +113,6 @@ class HolidaysShared:
             self._data.get(const.CONF_OBSERVED, True),
         )
         list_holidays = [h for h in sorted(hol.values())]
-        if user_input is not None and user_input != {}:
-            self.update_data(user_input)
-            return True
         self.data_schema = OrderedDict()
         self.data_schema[
             self.optional(const.CONF_HOLIDAY_POP_NAMED, user_input)
@@ -131,7 +129,7 @@ class HolidaysShared:
 class HolidaysFlowHandler(config_entries.ConfigFlow):
     """Config flow for holidays."""
 
-    VERSION = 1
+    VERSION = const.VERSION
     CONNECTION_CLASS = config_entries.CONN_CLASS_LOCAL_POLL
 
     def __init__(self):
@@ -143,7 +141,7 @@ class HolidaysFlowHandler(config_entries.ConfigFlow):
     ):  # pylint: disable=dangerous-default-value
         """Step 1 - user init."""
         if self.shared_class.step1_user_init(user_input):
-            return await self.async_step_detail()
+            return await self.async_step_detail(re_entry=False)
         return self.async_show_form(
             step_id="user",
             data_schema=vol.Schema(
@@ -153,12 +151,12 @@ class HolidaysFlowHandler(config_entries.ConfigFlow):
         )
 
     async def async_step_detail(
-        self, user_input={}
+        self, user_input={}, re_entry=True
     ):  # pylint: disable=dangerous-default-value
         """Step 2 - enter countries to pop"""
         self.shared_class.hass = self.hass
-        next_step = self.shared_class.step2_detail(user_input)
-        if next_step:
+        self.shared_class.step2_detail(user_input)
+        if re_entry:
             return self.async_create_entry(
                 title=self.shared_class.name, data=self.shared_class.data
             )
@@ -210,7 +208,7 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
     async def async_step_init(self, user_input=None):
         """Genral parameters."""
         if self.shared_class.step1_user_init(user_input, options=True):
-            return await self.async_step_detail()
+            return await self.async_step_detail(re_entry=False)
         else:
             return self.async_show_form(
                 step_id="init",
@@ -219,10 +217,11 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
             )
 
     async def async_step_detail(
-        self, user_input={}
+        self, user_input={}, re_entry=True
     ):  # pylint: disable=dangerous-default-value
         """Step 2 - enter detail depending on frequency."""
-        if self.shared_class.step2_detail(user_input):
+        self.shared_class.step2_detail(user_input)
+        if re_entry:
             return self.async_create_entry(
                 title=self.shared_class.name, data=self.shared_class.data
             )
