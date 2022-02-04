@@ -26,12 +26,9 @@ assignees: ''
 
 **Configuration**
 
-Do you configure the integration in YAML or Config Flow (GUI)? : <!--Say YAML, or Config Flow-->
-
-<!--Copy the sensor configuration below.
-    For YAML, that is easy. 
-    For config flow, you can either include screenshots (copy & paste)
-    or find the relevant part it in /config/.storage/core.config_entries and paste it below.-->
+<!--Copy the device configuration below.
+    Go to the device (e.g. from Configuration / Devices & Services, select the integration and the device.)
+    Hit DOWNLOAD DIAGNOSTICS, and paste the content of the file below.-->
 
 ```yaml
 
@@ -49,10 +46,5 @@ Do you configure the integration in YAML or Config Flow (GUI)? : <!--Say YAML, o
 **Screenshots**
 <!--If applicable, add screenshots to help explain the problem.-->
 
-**Version**
-
-Integration version: 
-
-Home Assistant version: 
 
 <!--Thanks-->
