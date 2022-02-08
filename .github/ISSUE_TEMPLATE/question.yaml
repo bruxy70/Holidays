@@ -1,0 +1,16 @@
+---
+name: "Question"
+description: I have a question, or need a help with the configuration of the integration
+labels: "question"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before you submit a new question, please check the [frequently asked questions and limitations](https://github.com/bruxy70/Holidays/wiki/Review-before-submitting-a-new-issue-or-feature-request).
+        Also, please search through the existing issues to see if others made the same question.
+  - type: textarea
+    attributes:
+      label: "Write your question here"
+      description: "If your question is about the configuration, please describe what you woudl like to achiieve, what you have tried, and wha's wrong with it.?"
+    validations:
+      required: true
