@@ -5,7 +5,7 @@ from typing import Any
 
 import voluptuous as vol
 
-"""Constants for holidays."""
+# Constants for holidays.
 # Base component constants
 DOMAIN = "holidays"
 CALENDAR_PLATFORM = "calendar"
@@ -113,8 +113,8 @@ def date_text(value: Any) -> str:
         return ""
     try:
         return datetime.strptime(value, "%Y-%m-%d").date().strftime("%Y-%m-%d")
-    except ValueError:
-        raise vol.Invalid(f"Invalid date: {value}")
+    except ValueError as error:
+        raise vol.Invalid(f"Invalid date: {value}") from error
 
 
 def time_text(value: Any) -> str:
@@ -123,8 +123,8 @@ def time_text(value: Any) -> str:
         return ""
     try:
         return datetime.strptime(value, "%H:%M").time().strftime("%H:%M")
-    except ValueError:
-        raise vol.Invalid(f"Invalid date: {value}")
+    except ValueError as error:
+        raise vol.Invalid(f"Invalid date: {value}") from error
 
 
 def month_day_text(value: Any) -> str:
@@ -133,8 +133,8 @@ def month_day_text(value: Any) -> str:
         return ""
     try:
         return datetime.strptime(value, "%m/%d").date().strftime("%m/%d")
-    except ValueError:
-        raise vol.Invalid(f"Invalid date: {value}")
+    except ValueError as error:
+        raise vol.Invalid(f"Invalid date: {value}") from error
 
 
 def string_to_list(string) -> list:

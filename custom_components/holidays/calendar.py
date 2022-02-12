@@ -1,7 +1,7 @@
 """Calendar platform for holidays."""
 import logging
 from datetime import date, datetime, timedelta
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 import homeassistant.util.dt as dt_util
 from homeassistant.config_entries import ConfigEntry
@@ -39,12 +39,12 @@ class Holidays(RestoreEntity):
         self._holiday_prov = config.get(const.CONF_PROV, "")
         self._holiday_state = config.get(const.CONF_STATE, "")
         self._holiday_observed = config.get(const.CONF_OBSERVED, True)
-        self._holidays = []
-        self._holiday_names = {}
-        self._event = None
-        self._next_date = None
-        self._next_holiday = None
-        self._last_updated = None
+        self._holidays: List[date] = []
+        self._holiday_names: Dict = {}
+        self._event: Optional[Dict] = None
+        self._next_date: Optional[date] = None
+        self._next_holiday: Optional[str] = None
+        self._last_updated: Optional[datetime] = None
         self._entities = config.get(CONF_ENTITIES)
         self._date_format = "%d-%b-%Y"
         self._icon_normal = config.get(const.CONF_ICON_NORMAL)
@@ -80,7 +80,7 @@ class Holidays(RestoreEntity):
                 for pop in self._holiday_pop_named:
                     try:
                         hol.pop_named(pop)
-                    except Exception as err:
+                    except KeyError as err:
                         _LOGGER.error("(%s) Holiday not removed (%s)", self._name, err)
             try:
                 for holiday_date, holiday_name in sorted(hol.items()):
@@ -217,20 +217,20 @@ class Holidays(RestoreEntity):
         now = dt_util.now()
         today = now.date()
         try:
-            ready_for_update = bool(self._last_updated.date() != today)
+            ready_for_update = bool(self._last_updated.date() != today)  # type: ignore
         except AttributeError:
             ready_for_update = True
         return ready_for_update
 
     async def async_next_date(self, first_date: date) -> Optional[date]:
         """Get next date from self._holidays."""
-        for d in self._holidays:
-            if d < first_date:
+        for holiday in self._holidays:
+            if holiday < first_date:
                 continue
-            return d
+            return holiday
         return None
 
-    def holiday_name(self, holiday_date: date) -> Optional[str]:
+    def holiday_name(self, holiday_date: Optional[date]) -> Optional[str]:
         """Get holiday name for a date."""
         try:
             return self._holiday_names[f"{holiday_date}"]

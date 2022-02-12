@@ -21,8 +21,8 @@ class HolidaysShared:
         """Create class attributes and set initial values."""
         self._data = data.copy()
         self.name = None
-        self.errors = {}
-        self.data_schema = {}
+        self.errors: Dict = {}
+        self.data_schema: Dict = {}
         self._defaults = {
             const.CONF_ICON_NORMAL: const.DEFAULT_ICON_NORMAL,
             const.CONF_ICON_TODAY: const.DEFAULT_ICON_TODAY,
@@ -64,7 +64,7 @@ class HolidaysShared:
             return vol.Optional(key)
         return vol.Optional(key, description={"suggested_value": suggested_value})
 
-    def step1_user_init(self, user_input: Dict, options=None) -> bool:
+    def step1_user_init(self, user_input: Optional[Dict], options=None) -> bool:
         """User init."""
         self.errors = {}
         if user_input is not None:
