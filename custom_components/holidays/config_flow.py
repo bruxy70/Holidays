@@ -136,6 +136,10 @@ class HolidaysFlowHandler(config_entries.ConfigFlow):
         """Initialize."""
         self.shared_class = HolidaysShared({"unique_id": str(uuid.uuid4())})
 
+    async def __post_init__(self):
+        """Pass Hass object to he shared class."""
+        self.shared_class.hass = self.hass
+
     async def async_step_user(
         self, user_input: Dict = {}
     ):  # pylint: disable=dangerous-default-value
@@ -149,10 +153,6 @@ class HolidaysFlowHandler(config_entries.ConfigFlow):
             ),
             errors=self.shared_class.errors,
         )
-
-    async def __post_init__(self):
-        """Pass Hass object to he shared class."""
-        self.shared_class.hass = self.hass
 
     async def async_step_detail(
         self, user_input: Dict = {}, re_entry=True
