@@ -1,9 +1,10 @@
 """Calendar platform for holidays."""
 import logging
 from datetime import date, datetime, timedelta
-from typing import Optional
+from typing import List, Optional
 
 import homeassistant.util.dt as dt_util
+from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import ATTR_HIDDEN, CONF_ENTITIES, CONF_NAME
 from homeassistant.helpers.restore_state import RestoreEntity
 
@@ -15,13 +16,7 @@ SCAN_INTERVAL = timedelta(seconds=10)
 THROTTLE_INTERVAL = timedelta(seconds=60)
 
 
-async def async_setup_platform(hass, _, async_add_entities, discovery_info=None):
-    """Create garbage collection entities defined in YAML and add them to HA."""
-    # async_add_entities([Holidays(hass, discovery_info)], True)
-    return
-
-
-async def async_setup_entry(hass, config_entry, async_add_devices):
+async def async_setup_entry(_, config_entry: ConfigEntry, async_add_devices):
     """Create garbage collection entities defined in config_flow and add them to HA."""
     async_add_devices([Holidays(config_entry)], True)
 
@@ -29,7 +24,7 @@ async def async_setup_entry(hass, config_entry, async_add_devices):
 class Holidays(RestoreEntity):
     """Holidays Sensor class."""
 
-    def __init__(self, config_entry):
+    def __init__(self, config_entry: ConfigEntry):
         """Read configuration and initialise class variables."""
         config = config_entry.data
         self.config_entry = config_entry
@@ -100,7 +95,7 @@ class Holidays(RestoreEntity):
                 )
             _LOGGER.debug("(%s) Found these holidays: %s", self._name, log)
 
-    async def async_added_to_hass(self):
+    async def async_added_to_hass(self) -> None:
         """When calendar is added to hassio, add it to calendar."""
         await super().async_added_to_hass()
         if const.DOMAIN not in self.hass.data:
@@ -109,7 +104,7 @@ class Holidays(RestoreEntity):
             self.hass.data[const.DOMAIN][const.CALENDAR_PLATFORM] = {}
         self.hass.data[const.DOMAIN][const.CALENDAR_PLATFORM][self.entity_id] = self
 
-    async def async_will_remove_from_hass(self):
+    async def async_will_remove_from_hass(self) -> None:
         """When calendar is added to hassio, remove it."""
         await super().async_will_remove_from_hass()
         del self.hass.data[const.DOMAIN][const.CALENDAR_PLATFORM][self.entity_id]
@@ -190,9 +185,11 @@ class Holidays(RestoreEntity):
             f"attributes: {self.extra_state_attributes}]"
         )
 
-    async def async_get_events(self, _, start_datetime, end_datetime):
+    async def async_get_events(
+        self, _, start_datetime: datetime, end_datetime: datetime
+    ) -> List[dict]:
         """Get all tasks in a specific time frame."""
-        events = []
+        events: List[dict] = []
         start_date = start_datetime.date()
         end_date = end_datetime.date()
         start = await self.async_next_date(start_date)
@@ -233,7 +230,7 @@ class Holidays(RestoreEntity):
             return d
         return None
 
-    def holiday_name(self, holiday_date: Optional[date]):
+    def holiday_name(self, holiday_date: date) -> Optional[str]:
         """Get holiday name for a date."""
         try:
             return self._holiday_names[f"{holiday_date}"]

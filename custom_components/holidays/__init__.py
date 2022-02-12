@@ -9,7 +9,9 @@ import holidays
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
 from homeassistant import config_entries
+from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_NAME
+from homeassistant.core import Config, HomeAssistant
 
 from . import const
 
@@ -46,7 +48,7 @@ CONFIG_SCHEMA = vol.Schema(
 )
 
 
-async def async_setup(hass, config):
+async def async_setup(_, config: Config) -> bool:
     """Set up this component using YAML."""
     if config.get(const.DOMAIN) is None:
         # We get here if the integration is set up using config flow
@@ -55,7 +57,7 @@ async def async_setup(hass, config):
     return False
 
 
-async def async_setup_entry(hass, config_entry):
+async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
     """Set up this integration using UI."""
     if config_entry.source == config_entries.SOURCE_IMPORT:
         # We get here if the integration is set up using YAML
@@ -76,7 +78,7 @@ async def async_setup_entry(hass, config_entry):
     return True
 
 
-async def async_remove_entry(hass, config_entry):
+async def async_remove_entry(hass: HomeAssistant, config_entry: ConfigEntry):
     """Handle removal of an entry."""
     try:
         await hass.config_entries.async_forward_entry_unload(
@@ -87,7 +89,7 @@ async def async_remove_entry(hass, config_entry):
         pass
 
 
-async def update_listener(hass, entry):
+async def update_listener(hass: HomeAssistant, entry) -> None:
     """Update listener."""
     # The OptionsFlow saves data to options.
     # Move them back to data and clean options (dirty, but not sure how else to do that)

@@ -1,12 +1,13 @@
 """Adds config flow for GarbageCollection."""
 import uuid
 from collections import OrderedDict
-from typing import Dict
+from typing import Dict, Optional
 
 import homeassistant.helpers.config_validation as cv
 import homeassistant.util.dt as dt_util
 import voluptuous as vol
 from homeassistant import config_entries
+from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_NAME
 from homeassistant.core import callback
 
@@ -16,7 +17,7 @@ from . import const, create_holidays
 class HolidaysShared:
     """Store configuration for both YAML and config_flow."""
 
-    def __init__(self, data):
+    def __init__(self, data: Dict):
         """Create class attributes and set initial values."""
         self._data = data.copy()
         self.name = None
@@ -29,7 +30,7 @@ class HolidaysShared:
             const.CONF_OBSERVED: True,
         }
 
-    def update_data(self, user_input: Dict):
+    def update_data(self, user_input: Dict) -> None:
         """Remove empty fields, and fields that should not be stored in the config."""
         self._data.update(user_input)
         for key, value in user_input.items():
@@ -39,7 +40,7 @@ class HolidaysShared:
             self.name = self._data[CONF_NAME]
             del self._data[CONF_NAME]
 
-    def required(self, key, options):
+    def required(self, key: str, options: Optional[dict]) -> vol.Required:
         """Return vol.Required."""
         if isinstance(options, dict) and key in options:
             suggested_value = options[key]
@@ -51,7 +52,7 @@ class HolidaysShared:
             return vol.Required(key)
         return vol.Required(key, description={"suggested_value": suggested_value})
 
-    def optional(self, key, options):
+    def optional(self, key: str, options: Optional[dict]) -> vol.Optional:
         """Return vol.Optional."""
         if isinstance(options, dict) and key in options:
             suggested_value = options[key]
@@ -63,7 +64,7 @@ class HolidaysShared:
             return vol.Optional(key)
         return vol.Optional(key, description={"suggested_value": suggested_value})
 
-    def step1_user_init(self, user_input: Dict, options=None):
+    def step1_user_init(self, user_input: Dict, options=None) -> bool:
         """User init."""
         self.errors = {}
         if user_input is not None:
@@ -79,7 +80,7 @@ class HolidaysShared:
                 )
             except vol.Invalid:
                 self.errors["base"] = "icon"
-            if self.errors == {}:
+            if not self.errors:
                 self.update_data(user_input)
                 return True
         self.data_schema = OrderedDict()
@@ -96,7 +97,7 @@ class HolidaysShared:
         self.data_schema[self.optional(const.CONF_OBSERVED, user_input)] = bool
         return False
 
-    def step2_detail(self, user_input: Dict):
+    def step2_detail(self, user_input: Dict) -> bool:
         """Step 2 - Pop countries."""
         self.errors = {}
         self.data_schema = {}
@@ -136,7 +137,7 @@ class HolidaysFlowHandler(config_entries.ConfigFlow):
         self.shared_class = HolidaysShared({"unique_id": str(uuid.uuid4())})
 
     async def async_step_user(
-        self, user_input={}
+        self, user_input: Dict = {}
     ):  # pylint: disable=dangerous-default-value
         """Step 1 - user init."""
         if self.shared_class.step1_user_init(user_input):
@@ -149,11 +150,14 @@ class HolidaysFlowHandler(config_entries.ConfigFlow):
             errors=self.shared_class.errors,
         )
 
+    async def __post_init__(self):
+        """Pass Hass object to he shared class."""
+        self.shared_class.hass = self.hass
+
     async def async_step_detail(
-        self, user_input={}, re_entry=True
+        self, user_input: Dict = {}, re_entry=True
     ):  # pylint: disable=dangerous-default-value
         """Step 2 - enter countries to pop."""
-        self.shared_class.hass = self.hass
         self.shared_class.step2_detail(user_input)
         if re_entry:
             return self.async_create_entry(
@@ -167,7 +171,9 @@ class HolidaysFlowHandler(config_entries.ConfigFlow):
             errors=self.shared_class.errors,
         )
 
-    async def async_step_import(self, user_input):  # pylint: disable=unused-argument
+    async def async_step_import(
+        self, user_input: Dict
+    ):  # pylint: disable=unused-argument
         """Import a config entry.
 
         Special type of import, we're not actually going to store any data.
@@ -180,31 +186,19 @@ class HolidaysFlowHandler(config_entries.ConfigFlow):
 
     @staticmethod
     @callback
-    def async_get_options_flow(config_entry):
+    def async_get_options_flow(config_entry: ConfigEntry):
         """Return options flow handler, or empty options flow if no unique_id."""
-        if config_entry.data.get("unique_id", None) is not None:
-            return OptionsFlowHandler(config_entry)
-        else:
-            return EmptyOptions(config_entry)
-
-
-"""
-
-
-O P T I O N S   F L O W
-
-
-"""
+        return OptionsFlowHandler(config_entry)
 
 
 class OptionsFlowHandler(config_entries.OptionsFlow):
     """Options flow handler."""
 
-    def __init__(self, config_entry):
+    def __init__(self, config_entry: ConfigEntry):
         """Create and initualize class variables."""
         self.shared_class = HolidaysShared(config_entry.data)
 
-    async def async_step_init(self, user_input=None):
+    async def async_step_init(self, user_input: Optional[Dict] = None):
         """Genral parameters."""
         if self.shared_class.step1_user_init(user_input, options=True):
             return await self.async_step_detail(re_entry=False)
@@ -216,7 +210,7 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
             )
 
     async def async_step_detail(
-        self, user_input={}, re_entry=True
+        self, user_input: Dict = {}, re_entry=True
     ):  # pylint: disable=dangerous-default-value
         """Step 2 - enter detail depending on frequency."""
         self.shared_class.step2_detail(user_input)
@@ -229,11 +223,3 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
             data_schema=vol.Schema(self.shared_class.data_schema),
             errors=self.shared_class.errors,
         )
-
-
-class EmptyOptions(config_entries.OptionsFlow):
-    """A class for default options. Not sure why this is required."""
-
-    def __init__(self, config_entry):
-        """Just set the config_entry parameter."""
-        self.config_entry = config_entry
