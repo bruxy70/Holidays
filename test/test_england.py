@@ -4,6 +4,9 @@ from typing import Any, Dict
 
 import holidays  # pylint: disable=import-self
 
+print("List supported countries")
+pprint(holidays.list_supported_countries())
+
 kwargs: Dict[str, Any] = {"years": [2022]}
 COUNTRY1 = "England"
 # pylint: disable=maybe-no-member
