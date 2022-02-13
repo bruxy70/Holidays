@@ -28,17 +28,16 @@ class Holidays(RestoreEntity):
         """Read configuration and initialise class variables."""
         config = config_entry.data
         self.config_entry = config_entry
-        self._name = (
+        self._name: str = (
             config_entry.title
             if config_entry.title is not None
             else config.get(CONF_NAME)
         )
         self._hidden = config.get(ATTR_HIDDEN, False)
         self._country = config.get(const.CONF_COUNTRY, "")
-        self._holiday_pop_named = config.get(const.CONF_HOLIDAY_POP_NAMED)
-        self._holiday_prov = config.get(const.CONF_PROV, "")
-        self._holiday_state = config.get(const.CONF_STATE, "")
+        self._holiday_subdiv = config.get(const.CONF_SUBDIV, "")
         self._holiday_observed = config.get(const.CONF_OBSERVED, True)
+        self._holiday_pop_named = config.get(const.CONF_HOLIDAY_POP_NAMED)
         self._holidays: List[date] = []
         self._holiday_names: Dict = {}
         self._event: Optional[Dict] = None
@@ -62,18 +61,16 @@ class Holidays(RestoreEntity):
             years = [this_year - 1, this_year, this_year + 1]
             _LOGGER.debug(
                 "(%s) Country Holidays with parameters: "
-                "country: %s, prov: %s, state: %s, observed: %s",
+                "country: %s, subdivision: %s, observed: %s",
                 self._name,
                 self._country,
-                self._holiday_prov,
-                self._holiday_state,
+                self._holiday_subdiv,
                 self._holiday_observed,
             )
             hol = create_holidays(
                 years,
                 self._country,
-                self._holiday_state,
-                self._holiday_prov,
+                self._holiday_subdiv,
                 self._holiday_observed,
             )
             if self._holiday_pop_named is not None:

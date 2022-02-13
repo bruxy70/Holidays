@@ -1,7 +1,7 @@
 """Adds config flow for GarbageCollection."""
 import uuid
 from collections import OrderedDict
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 
 import holidays
 import homeassistant.helpers.config_validation as cv
@@ -21,12 +21,14 @@ class HolidaysShared:
     def __init__(self, data: Dict):
         """Create class attributes and set initial values."""
         self._data = data.copy()
-        self.name = None
+        self.name: Optional[str] = None
         # pylint: disable=maybe-no-member
-        self._supported_countries = holidays.list_supported_countries()  # type: ignore
-        self.country_codes = [holiday for holiday in self._supported_countries]
+        self._supported_countries: Dict = (
+            holidays.list_supported_countries()  # type: ignore
+        )
+        self.country_codes: List = [holiday for holiday in self._supported_countries]
         self.errors: Dict = {}
-        self.data_schema: Dict = {}
+        self.data_schema: OrderedDict = {}
         self._defaults = {
             const.CONF_ICON_NORMAL: const.DEFAULT_ICON_NORMAL,
             const.CONF_ICON_TODAY: const.DEFAULT_ICON_TODAY,
@@ -70,7 +72,7 @@ class HolidaysShared:
 
     def step1_user_init(self, user_input: Optional[Dict], options=None) -> bool:
         """User init."""
-        self.errors = {}
+        self.errors.clear()
         if user_input is not None:
             try:
                 cv.icon(
@@ -87,7 +89,7 @@ class HolidaysShared:
             if not self.errors:
                 self.update_data(user_input)
                 return True
-        self.data_schema = OrderedDict()
+        self.data_schema.clear()
         if not options:
             self.data_schema[self.required(CONF_NAME, user_input)] = str
         self.data_schema[self.optional(const.CONF_ICON_NORMAL, user_input)] = str
@@ -101,8 +103,7 @@ class HolidaysShared:
 
     def step2_subdiv(self, user_input: Dict) -> bool:
         """Step 2 - Pop countries."""
-        self.errors = {}
-        self.data_schema = {}
+        self.errors.clear()
 
         subdivs = self._supported_countries[self._data.get(const.CONF_COUNTRY)]
         # Skip this step if the country does not have Subdivs
@@ -112,7 +113,7 @@ class HolidaysShared:
             self.update_data(user_input)
             return True
 
-        self.data_schema = OrderedDict()
+        self.data_schema.clear()
         self.data_schema[
             self.required(const.CONF_SUBDIV, user_input)
         ] = cv.multi_select(subdivs)
@@ -121,7 +122,6 @@ class HolidaysShared:
     def step3_pop(self, user_input: Dict) -> bool:
         """Step 2 - Pop countries."""
         self.errors = {}
-        self.data_schema = {}
 
         if user_input is not None and user_input:
             self.update_data(user_input)
@@ -133,7 +133,7 @@ class HolidaysShared:
             self._data.get(const.CONF_OBSERVED, True),
         )
         list_holidays = [h for h in sorted(hol.values())]
-        self.data_schema = OrderedDict()
+        self.data_schema.clear()
         self.data_schema[
             self.optional(const.CONF_HOLIDAY_POP_NAMED, user_input)
         ] = cv.multi_select(list_holidays)
