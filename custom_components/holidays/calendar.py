@@ -184,9 +184,9 @@ class Holidays(RestoreEntity):
 
     async def async_get_events(
         self, _, start_datetime: datetime, end_datetime: datetime
-    ) -> List[dict]:
+    ) -> List[Dict]:
         """Get all tasks in a specific time frame."""
-        events: List[dict] = []
+        events: List[Dict] = []
         start_date = start_datetime.date()
         end_date = end_datetime.date()
         start = await self.async_next_date(start_date)

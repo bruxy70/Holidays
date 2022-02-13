@@ -46,9 +46,9 @@ class HolidaysShared:
             self.name = self._data[CONF_NAME]
             del self._data[CONF_NAME]
 
-    def required(self, key: str, options: Optional[dict]) -> vol.Required:
+    def required(self, key: str, options: Optional[Dict]) -> vol.Required:
         """Return vol.Required."""
-        if isinstance(options, dict) and key in options:
+        if isinstance(options, Dict) and key in options:
             suggested_value = options[key]
         elif key in self._data:
             suggested_value = self._data[key]
@@ -58,9 +58,9 @@ class HolidaysShared:
             return vol.Required(key)
         return vol.Required(key, description={"suggested_value": suggested_value})
 
-    def optional(self, key: str, options: Optional[dict]) -> vol.Optional:
+    def optional(self, key: str, options: Optional[Dict]) -> vol.Optional:
         """Return vol.Optional."""
-        if isinstance(options, dict) and key in options:
+        if isinstance(options, Dict) and key in options:
             suggested_value = options[key]
         elif key in self._data:
             suggested_value = self._data[key]

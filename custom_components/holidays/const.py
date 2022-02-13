@@ -1,7 +1,7 @@
 """Define constants used in garbage_collection."""
 
 from datetime import datetime
-from typing import Any
+from typing import Any, List
 
 import voluptuous as vol
 
@@ -75,7 +75,7 @@ def month_day_text(value: Any) -> str:
         raise vol.Invalid(f"Invalid date: {value}") from error
 
 
-def string_to_list(string) -> list:
+def string_to_list(string) -> List:
     """Convert comma separated text to list."""
     if string is None or string == "":
         return []
