@@ -28,7 +28,7 @@ class HolidaysShared:
         )
         self.country_codes: List = [holiday for holiday in self._supported_countries]
         self.errors: Dict = {}
-        self.data_schema: OrderedDict = {}
+        self.data_schema: OrderedDict = OrderedDict()
         self._defaults = {
             const.CONF_ICON_NORMAL: const.DEFAULT_ICON_NORMAL,
             const.CONF_ICON_TODAY: const.DEFAULT_ICON_TODAY,
