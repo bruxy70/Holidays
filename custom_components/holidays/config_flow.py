@@ -3,6 +3,7 @@ import uuid
 from collections import OrderedDict
 from typing import Dict, Optional
 
+import holidays
 import homeassistant.helpers.config_validation as cv
 import homeassistant.util.dt as dt_util
 import voluptuous as vol
@@ -21,6 +22,9 @@ class HolidaysShared:
         """Create class attributes and set initial values."""
         self._data = data.copy()
         self.name = None
+        # pylint: disable=maybe-no-member
+        self._supported_countries = holidays.list_supported_countries()  # type: ignore
+        self.country_codes = [holiday for holiday in self._supported_countries]
         self.errors: Dict = {}
         self.data_schema: Dict = {}
         self._defaults = {
@@ -90,26 +94,42 @@ class HolidaysShared:
         self.data_schema[self.optional(const.CONF_ICON_TODAY, user_input)] = str
         self.data_schema[self.optional(const.CONF_ICON_TOMORROW, user_input)] = str
         self.data_schema[self.required(const.CONF_COUNTRY, user_input)] = vol.In(
-            const.COUNTRY_CODES
+            self.country_codes
         )
-        self.data_schema[self.optional(const.CONF_PROV, user_input)] = str
-        self.data_schema[self.optional(const.CONF_STATE, user_input)] = str
         self.data_schema[self.optional(const.CONF_OBSERVED, user_input)] = bool
         return False
 
-    def step2_detail(self, user_input: Dict) -> bool:
+    def step2_subdiv(self, user_input: Dict) -> bool:
         """Step 2 - Pop countries."""
         self.errors = {}
         self.data_schema = {}
 
-        if user_input is not None and user_input != {}:
+        subdivs = self._supported_countries[self._data.get(const.CONF_COUNTRY)]
+        # Skip this step if the country does not have Subdivs
+        if not subdivs:
+            return True
+        if user_input is not None and user_input:
+            self.update_data(user_input)
+            return True
+
+        self.data_schema = OrderedDict()
+        self.data_schema[
+            self.required(const.CONF_SUBDIV, user_input)
+        ] = cv.multi_select(subdivs)
+        return False
+
+    def step3_pop(self, user_input: Dict) -> bool:
+        """Step 2 - Pop countries."""
+        self.errors = {}
+        self.data_schema = {}
+
+        if user_input is not None and user_input:
             self.update_data(user_input)
             return True
         hol = create_holidays(
             [dt_util.now().date().year],
             self._data.get(const.CONF_COUNTRY, ""),
-            self._data.get(const.CONF_STATE, ""),
-            self._data.get(const.CONF_PROV, ""),
+            self._data.get(const.CONF_SUBDIV, ""),
             self._data.get(const.CONF_OBSERVED, True),
         )
         list_holidays = [h for h in sorted(hol.values())]
@@ -145,7 +165,7 @@ class HolidaysFlowHandler(config_entries.ConfigFlow):
     ):  # pylint: disable=dangerous-default-value
         """Step 1 - user init."""
         if self.shared_class.step1_user_init(user_input):
-            return await self.async_step_detail(re_entry=False)
+            return await self.async_step_subdiv()
         return self.async_show_form(
             step_id="user",
             data_schema=vol.Schema(
@@ -154,17 +174,36 @@ class HolidaysFlowHandler(config_entries.ConfigFlow):
             errors=self.shared_class.errors,
         )
 
-    async def async_step_detail(
+    async def async_step_subdiv(
+        self, user_input: Dict = {}
+    ):  # pylint: disable=dangerous-default-value
+        """Step 2 - enter country subdivision (e.g. states)."""
+        if self.shared_class.step2_subdiv(user_input):
+            return await self.async_step_pop(re_entry=False)
+        return self.async_show_form(
+            step_id="subdiv",
+            data_schema=vol.Schema(
+                self.shared_class.data_schema, extra=vol.ALLOW_EXTRA
+            ),
+            errors=self.shared_class.errors,
+        )
+
+    async def async_step_pop(
         self, user_input: Dict = {}, re_entry=True
     ):  # pylint: disable=dangerous-default-value
-        """Step 2 - enter countries to pop."""
-        self.shared_class.step2_detail(user_input)
+        """Step 3 - enter holidays to pop.
+
+        Can be submitted without selecting any holidays to pop.
+        In this case the user input will be blank.
+        So checking if it is blank won't help, checking re_entry field
+        """
+        self.shared_class.step3_pop(user_input)
         if re_entry:
             return self.async_create_entry(
                 title=self.shared_class.name, data=self.shared_class.data
             )
         return self.async_show_form(
-            step_id="detail",
+            step_id="pop",
             data_schema=vol.Schema(
                 self.shared_class.data_schema, extra=vol.ALLOW_EXTRA
             ),
@@ -201,25 +240,41 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
     async def async_step_init(self, user_input: Optional[Dict] = None):
         """Genral parameters."""
         if self.shared_class.step1_user_init(user_input, options=True):
-            return await self.async_step_detail(re_entry=False)
-        else:
-            return self.async_show_form(
-                step_id="init",
-                data_schema=vol.Schema(self.shared_class.data_schema),
-                errors=self.shared_class.errors,
-            )
+            return await self.async_step_subdiv()
+        return self.async_show_form(
+            step_id="init",
+            data_schema=vol.Schema(self.shared_class.data_schema),
+            errors=self.shared_class.errors,
+        )
 
-    async def async_step_detail(
+    async def async_step_subdiv(
+        self, user_input: Dict = {}
+    ):  # pylint: disable=dangerous-default-value
+        """Step 2 - enter country subdivision (e.g. states)."""
+        if self.shared_class.step2_subdiv(user_input):
+            return await self.async_step_pop(re_entry=False)
+        return self.async_show_form(
+            step_id="subdiv",
+            data_schema=vol.Schema(self.shared_class.data_schema),
+            errors=self.shared_class.errors,
+        )
+
+    async def async_step_pop(
         self, user_input: Dict = {}, re_entry=True
     ):  # pylint: disable=dangerous-default-value
-        """Step 2 - enter detail depending on frequency."""
-        self.shared_class.step2_detail(user_input)
+        """Step 3 - enter holidays to pop.
+
+        Can be submitted without selecting any holidays to pop.
+        In this case the user input will be blank.
+        So checking if it is blank won't help, checking re_entry field
+        """
+        self.shared_class.step3_pop(user_input)
         if re_entry:
             return self.async_create_entry(
                 title=self.shared_class.name, data=self.shared_class.data
             )
         return self.async_show_form(
-            step_id="detail",
+            step_id="pop",
             data_schema=vol.Schema(self.shared_class.data_schema),
             errors=self.shared_class.errors,
         )

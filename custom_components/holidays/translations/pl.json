@@ -10,12 +10,17 @@
                     "icon_tomorrow": "Ikona dzień świąteczny jutro (mdi:calendar-arrow-right) - opcjonalnie",
                     "icon_today": "Ikona dzień świąteczny dzisiaj (mdi:calendar-check) - opcjonalnie",
                     "country": "Kraj",
-                    "prov": "Święta państwowe - prowincje (opcjonalnie) - BRAK dla PL patrz https://github.com/dr-prodigy/python-holidays",
-                    "state": "Święta państwowe - stan (opcjonalnie)",
                     "observed": "Święta państwowe - przesunięte obchody (opcjonalnie)"
                 }
             },
-            "detail": {
+            "subdiv": {
+                "title": "Holidays - (1½/2)",
+                "description": "More info on https://github.com/bruxy70/Holidays",
+                "data": {
+                    "subdiv": "Święta państwowe - prowincje (opcjonalnie) - BRAK dla PL patrz https://github.com/dr-prodigy/python-holidays"
+                }
+            },
+            "pop": {
                 "title": "Święta (2/2)",
                 "description": "Więcej informacji na stronie https://github.com/bruxy70/Holidays",
                 "data": {
@@ -41,12 +46,17 @@
                     "icon_tomorrow": "Ikona dzień świąteczny jutro (mdi:calendar-arrow-right) - opcjonalnie",
                     "icon_today": "Ikona dzień świąteczny dzisiaj (mdi:calendar-check) - opcjonalnie",
                     "country": "Kraj",
-                    "prov": "Święta państwowe - prowincje (opcjonalnie) - BRAK dla PL patrz https://github.com/dr-prodigy/python-holidays",
-                    "state": "Święta państwowe - stan (opcjonalnie)",
                     "observed": "Święta państwowe - przesunięte obchody (opcjonalnie)"
                 }
             },
-            "detail": {
+            "subdiv": {
+                "title": "Holidays - (1½/2)",
+                "description": "More info on https://github.com/bruxy70/Holidays",
+                "data": {
+                    "subdiv": "Święta państwowe - prowincje (opcjonalnie) - BRAK dla PL patrz https://github.com/dr-prodigy/python-holidays"
+                }
+            },
+            "pop": {
                 "title": "Święta (2/2)",
                 "description": "Więcej informacji na stronie https://github.com/bruxy70/Holidays",
                 "data": {
@@ -59,5 +69,4 @@
             "icon": "Ikony powinny być określone w formacie 'prefix:name'."
         }
     }
-
 }
