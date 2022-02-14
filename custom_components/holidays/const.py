@@ -1,10 +1,5 @@
 """Define constants used in garbage_collection."""
 
-from datetime import datetime
-from typing import Any, List
-
-import voluptuous as vol
-
 # Constants for holidays.
 # Base component constants
 DOMAIN = "holidays"
@@ -43,40 +38,3 @@ DEFAULT_ICON_NORMAL = "mdi:calendar-blank"
 DEFAULT_ICON_TODAY = "mdi:calendar-arrow-right"
 DEFAULT_ICON_TOMORROW = "mdi:calendar-check"
 ICON = DEFAULT_ICON_NORMAL
-
-
-def date_text(value: Any) -> str:
-    """Have to store date as text - datetime is not JSON serialisable."""
-    if value is None or value == "":
-        return ""
-    try:
-        return datetime.strptime(value, "%Y-%m-%d").date().strftime("%Y-%m-%d")
-    except ValueError as error:
-        raise vol.Invalid(f"Invalid date: {value}") from error
-
-
-def time_text(value: Any) -> str:
-    """Have to store time as text - datetime is not JSON serialisable."""
-    if value is None or value == "":
-        return ""
-    try:
-        return datetime.strptime(value, "%H:%M").time().strftime("%H:%M")
-    except ValueError as error:
-        raise vol.Invalid(f"Invalid date: {value}") from error
-
-
-def month_day_text(value: Any) -> str:
-    """Validate format month/day."""
-    if value is None or value == "":
-        return ""
-    try:
-        return datetime.strptime(value, "%m/%d").date().strftime("%m/%d")
-    except ValueError as error:
-        raise vol.Invalid(f"Invalid date: {value}") from error
-
-
-def string_to_list(string) -> List:
-    """Convert comma separated text to list."""
-    if string is None or string == "":
-        return []
-    return list(map(lambda x: x.strip("'\" "), string.split(",")))
