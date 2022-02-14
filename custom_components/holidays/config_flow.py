@@ -26,7 +26,9 @@ class HolidaysShared:
         self._supported_countries: Dict = (
             holidays.list_supported_countries()  # type: ignore
         )
-        self.country_codes: List = [holiday for holiday in self._supported_countries]
+        self.country_codes: List = sorted(
+            [holiday for holiday in self._supported_countries]
+        )
         self.errors: Dict = {}
         self.data_schema: OrderedDict = OrderedDict()
         self._defaults = {
@@ -114,9 +116,7 @@ class HolidaysShared:
             return True
 
         self.data_schema.clear()
-        self.data_schema[
-            self.required(const.CONF_SUBDIV, user_input)
-        ] = cv.multi_select(subdivs)
+        self.data_schema[self.required(const.CONF_SUBDIV, user_input)] = vol.In(subdivs)
         return False
 
     def step3_pop(self, user_input: Dict) -> bool:
