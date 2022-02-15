@@ -83,11 +83,11 @@ async def async_migrate_entry(_, config_entry: ConfigEntry) -> bool:
     new_data = {**config_entry.data}
     new_options = {**config_entry.options}
     if config_entry.version == 1:
-        if new_data.get(const.CONF_PROV) != "":
-            new_data[const.CONF_SUBDIV] = new_data[const.CONF_PROV]
+        if new_data.get(const.CONF_PROV, "") != "":
+            new_data[const.CONF_SUBDIV] = new_data.get(const.CONF_PROV)
             del new_data[const.CONF_PROV]
-        if new_data.get(const.CONF_STATE) != "":
-            new_data[const.CONF_SUBDIV] = new_data[const.CONF_STATE]
+        if new_data.get(const.CONF_STATE, "") != "":
+            new_data[const.CONF_SUBDIV] = new_data.get(const.CONF_STATE)
             del new_data[const.CONF_STATE]
         if new_data.get(const.CONF_COUNTRY) == "England":
             new_data[const.CONF_COUNTRY] = "GB"
