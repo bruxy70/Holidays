@@ -12,6 +12,6 @@
   ],
   "requirements": [
     "python-dateutil>=2.8.2",
-    "holidays>=0.12"
+    "holidays>=0.13"
   ]
 }
