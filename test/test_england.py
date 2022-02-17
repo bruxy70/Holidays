@@ -4,17 +4,18 @@ from typing import Any, Dict
 
 import holidays  # pylint: disable=import-self
 
-print("List supported countries")
-pprint(holidays.list_supported_countries())
+#print("List supported countries")
+#pprint(holidays.list_supported_countries())
 
 kwargs: Dict[str, Any] = {"years": [2022]}
-COUNTRY1 = "England"
-# pylint: disable=maybe-no-member
-print("Using Country")
-pprint(holidays.CountryHoliday(COUNTRY1, **kwargs))
-
 COUNTRY2 = "GB"
-kwargs["subdiv"] = "England"
-# pylint: disable=maybe-no-member
-print("Using Country")
-pprint(holidays.CountryHoliday(COUNTRY2, **kwargs))
+obj_holidays = getattr(holidays,COUNTRY2)(**kwargs)
+if hasattr(obj_holidays,"subdiv"):
+    print(COUNTRY2 ,"has SUBDIV")
+    kwargs["subdiv"] = "England"
+    obj_holidays = getattr(holidays,COUNTRY2)(**kwargs)
+else:
+    print("%S does not have SUBDIV",COUNTRY2)
+pprint(obj_holidays)
+
+
