@@ -133,5 +133,5 @@ def create_holidays(years: List, country: str, subdiv: str, observed: bool):
     kwargs["observed"] = observed
     # pylint: disable=maybe-no-member
     if country == "SE":
-        return holidays.Sweden(include_sundays=False, **kwargs)  # type: ignore
-    return holidays.country_holidays(country, **kwargs)  # type: ignore
+        return holidays.Sweden(include_sundays=False, **kwargs)
+    return holidays.country_holidays(country, **kwargs)

@@ -23,9 +23,7 @@ class HolidaysShared:
         self._data = data.copy()
         self.name: Optional[str] = None
         # pylint: disable=maybe-no-member
-        self._supported_countries: Dict = (
-            holidays.list_supported_countries()  # type: ignore
-        )
+        self._supported_countries: Dict = holidays.list_supported_countries()
         self.country_codes: List = sorted(
             [holiday for holiday in self._supported_countries]
         )
