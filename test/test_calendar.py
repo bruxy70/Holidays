@@ -6,16 +6,6 @@ from homeassistant.core import HomeAssistant
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
 
-async def test_setup(hass: HomeAssistant):  # pylint: disable=unused-argument
-    """Check config_entry is created."""
-    config_entry: MockConfigEntry = MockConfigEntry(
-        domain=const.DOMAIN,
-        data={"country": "US", "subdiv": "CZ"},
-        title="US Holidays",
-    )
-    assert config_entry.entry_id != None
-
-
 async def test_uk(hass: HomeAssistant):
     """Test UK Holidays."""
 
