@@ -1,1 +1,1 @@
-"""Module"""
+"""Needed for pytest."""
