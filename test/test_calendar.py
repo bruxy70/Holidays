@@ -6,7 +6,7 @@ from homeassistant.core import HomeAssistant
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
 
-async def test_setup(_):
+async def test_setup(hass: HomeAssistant):  # disable pylint(unused-argument)
     """Check config_entry is created."""
     config_entry: MockConfigEntry = MockConfigEntry(
         domain=const.DOMAIN,
