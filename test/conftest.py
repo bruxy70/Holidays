@@ -7,6 +7,7 @@ import pytest
 TEST_PLUGINS = "pytest_homeassistant_custom_component"  # pylint: disable=invalid-name
 FUNCTION_PATH = "custom_components.holidays.calendar.now"
 
+
 # Fix current date to June 1st, 2020
 @pytest.fixture(autouse=True)
 def now_fixed():
