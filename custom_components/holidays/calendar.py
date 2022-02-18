@@ -21,6 +21,11 @@ async def async_setup_entry(_, config_entry: ConfigEntry, async_add_devices):
     async_add_devices([Holidays(config_entry)], True)
 
 
+def now():
+    """Return current date and time. Needed for testing."""
+    return dt_util.now()
+
+
 class Holidays(RestoreEntity):
     """Holidays Sensor class."""
 
@@ -57,7 +62,7 @@ class Holidays(RestoreEntity):
         self._holidays.clear()
         self._holiday_names.clear()
         if self._country is not None and self._country != "":
-            this_year = dt_util.now().date().year
+            this_year = now().date().year
             years = [this_year - 1, this_year, this_year + 1]
             _LOGGER.debug(
                 "(%s) Country Holidays with parameters: "
@@ -133,7 +138,7 @@ class Holidays(RestoreEntity):
     @property
     def state(self):
         """Return the calendar state."""
-        today = dt_util.now().date()
+        today = now().date()
         try:
             return (self._next_date - today).days
         except TypeError:
@@ -211,8 +216,7 @@ class Holidays(RestoreEntity):
 
         Skip the update if the calendar was updated today
         """
-        now = dt_util.now()
-        today = now.date()
+        today = now().date()
         try:
             ready_for_update = bool(self._last_updated.date() != today)  # type: ignore
         except AttributeError:
@@ -245,11 +249,10 @@ class Holidays(RestoreEntity):
     async def async_update_state(self) -> None:
         """Pick the first event from holiday dates, update attributes."""
         _LOGGER.debug("(%s) Looking for next collection", self._name)
-        now = dt_util.now()
-        today = now.date()
+        today = now().date()
         self._next_date = await self.async_next_date(today)
         self._next_holiday = self.holiday_name(self._next_date)
-        self._last_updated = now
+        self._last_updated = now()
         if self._next_date is not None:
             _LOGGER.debug(
                 "(%s) next_date (%s), today (%s)", self._name, self._next_date, today
