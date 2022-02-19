@@ -14,7 +14,7 @@ async def test_config_flow(hass: HomeAssistant) -> None:
     """Test we get the form."""
     await setup.async_setup_component(hass, "persistent_notification", {})
 
-    # Initialise Config Flow Flow
+    # Initialise Config Flow
     result = await hass.config_entries.flow.async_init(
         DOMAIN, context={"source": config_entries.SOURCE_USER}
     )
