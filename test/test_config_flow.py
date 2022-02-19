@@ -10,20 +10,7 @@ from custom_components.holidays import const
 from custom_components.holidays.const import DOMAIN
 
 
-# This fixture bypasses the actual setup of the integration
-# since we only want to test the config flow. We test the
-# actual functionality of the integration in other test modules.
-@pytest.fixture(autouse=True)
-def bypass_setup_fixture():
-    """Prevent setup."""
-    with patch(
-        "custom_components.holidays.async_setup_entry",
-        return_value=True,
-    ):
-        yield
-
-
-async def test_config_flow(hass: HomeAssistant):
+async def test_config_flow(hass: HomeAssistant) -> None:
     """Test we get the form."""
     await setup.async_setup_component(hass, "persistent_notification", {})
 
@@ -58,10 +45,14 @@ async def test_config_flow(hass: HomeAssistant):
     assert result["errors"] == {}
 
     # ... wil leave pop enpty
-    result = await hass.config_entries.flow.async_configure(
-        result["flow_id"],
-        user_input={},
-    )
+    with patch(
+        "custom_components.holidays.async_setup_entry",
+        return_value=True,
+    ) as mock_setup_entry:
+        result = await hass.config_entries.flow.async_configure(
+            result["flow_id"],
+            user_input={},
+        )
     # Should create entry
     assert result["type"] == data_entry_flow.RESULT_TYPE_CREATE_ENTRY
     del result["data"]["unique_id"]
@@ -69,9 +60,10 @@ async def test_config_flow(hass: HomeAssistant):
         "country": "GB",
         "subdiv": "England",
     }
+    assert len(mock_setup_entry.mock_calls) == 1
 
 
-async def test_options_flow(hass: HomeAssistant):
+async def test_options_flow(hass: HomeAssistant) -> None:
     """Test we get the form."""
 
     # Create MockConfigEntry

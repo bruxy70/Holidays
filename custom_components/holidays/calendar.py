@@ -21,7 +21,7 @@ async def async_setup_entry(_, config_entry: ConfigEntry, async_add_devices):
     async_add_devices([Holidays(config_entry)], True)
 
 
-def now():
+def now() -> datetime:
     """Return current date and time. Needed for testing."""
     return dt_util.now()
 

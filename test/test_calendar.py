@@ -12,7 +12,7 @@ ERROR_DATE = "Next holiday should be on {}, not {}."
 ERROR_LENGTH = "Holidays should have {} items, not {}."
 
 
-async def test_uk(hass: HomeAssistant):
+async def test_uk(hass: HomeAssistant) -> None:
     """Test UK Holidays."""
 
     config_entry: MockConfigEntry = MockConfigEntry(
@@ -37,7 +37,7 @@ async def test_uk(hass: HomeAssistant):
     assert len_holidays == 27, ERROR_LENGTH.format(27, len_holidays)
 
 
-async def test_cz(hass: HomeAssistant):
+async def test_cz(hass: HomeAssistant) -> None:
     """Test CZ Holidays."""
 
     config_entry: MockConfigEntry = MockConfigEntry(
