@@ -5,6 +5,11 @@ from custom_components.holidays import const
 from homeassistant.core import HomeAssistant
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
+ERROR_STATE = "Next holiday should be in {} days, not {}."
+ERROR_NAME = "Next holiday should be {}, not {}."
+ERROR_DATE = "Next holiday should be on {}, not {}."
+ERROR_LENGTH = "Holidays should have {} items, not {}."
+
 
 async def test_uk(hass: HomeAssistant):
     """Test UK Holidays."""
@@ -23,14 +28,12 @@ async def test_uk(hass: HomeAssistant):
     next_holiday = uk_holidays.attributes["next_holiday"]
     holidays = uk_holidays.attributes["holidays"]
     len_holidays = len(holidays.strip().split("\n"))
-    assert state == "9", f"Next holiday should be in 9 days, not {state}"
-    assert (
-        next_holiday == "Good Friday"
-    ), f"Next holiday should be Good Friday, not {next_holiday}"
-    assert next_date.date() == date(
-        2020, 4, 10
-    ), f"Next holiday should be on April 10, not {next_date.date()}"
-    assert len_holidays == 27, f"Holidays should have 27 items, not {len_holidays}"
+    assert state == "9", ERROR_STATE.format(9, state)
+    assert next_holiday == "Good Friday", ERROR_NAME.format("Good Friday", next_holiday)
+    assert next_date.date() == date(2020, 4, 10), ERROR_DATE.format(
+        "April 10", next_date.date()
+    )
+    assert len_holidays == 27, ERROR_LENGTH.format(27, len_holidays)
 
 
 async def test_cz(hass: HomeAssistant):
@@ -50,11 +53,9 @@ async def test_cz(hass: HomeAssistant):
     next_holiday = cz_holidays.attributes["next_holiday"]
     holidays = cz_holidays.attributes["holidays"]
     len_holidays = len(holidays.strip().split("\n"))
-    assert state == "9", f"Next holiday should be in 9 days, not {state}"
-    assert (
-        next_holiday == "Velký pátek"
-    ), f"Next holiday should be Velký pátek, not {next_holiday}"
-    assert next_date.date() == date(
-        2020, 4, 10
-    ), f"Next holiday should be on April 10, not {next_date.date()}"
-    assert len_holidays == 39, f"Holidays should have 39 items, not {len_holidays}"
+    assert state == "9", ERROR_STATE.format(9, state)
+    assert next_holiday == "Velký pátek", ERROR_NAME.format("Velký pátek", next_holiday)
+    assert next_date.date() == date(2020, 4, 10), ERROR_DATE.format(
+        "April 10", next_date.date()
+    )
+    assert len_holidays == 39, ERROR_LENGTH.format(39, len_holidays)
