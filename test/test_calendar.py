@@ -1,9 +1,10 @@
 """Test calendar for simple integration."""
 from datetime import date
 
-from custom_components.holidays import const
 from homeassistant.core import HomeAssistant
 from pytest_homeassistant_custom_component.common import MockConfigEntry
+
+from custom_components.holidays import const
 
 ERROR_STATE = "Next holiday should be in {} days, not {}."
 ERROR_NAME = "Next holiday should be {}, not {}."
@@ -11,7 +12,7 @@ ERROR_DATE = "Next holiday should be on {}, not {}."
 ERROR_LENGTH = "Holidays should have {} items, not {}."
 
 
-async def test_uk(hass: HomeAssistant):
+async def test_uk(hass: HomeAssistant) -> None:
     """Test UK Holidays."""
 
     config_entry: MockConfigEntry = MockConfigEntry(
@@ -36,7 +37,7 @@ async def test_uk(hass: HomeAssistant):
     assert len_holidays == 27, ERROR_LENGTH.format(27, len_holidays)
 
 
-async def test_cz(hass: HomeAssistant):
+async def test_cz(hass: HomeAssistant) -> None:
     """Test CZ Holidays."""
 
     config_entry: MockConfigEntry = MockConfigEntry(
