@@ -56,7 +56,7 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> b
     config_entry.options = {}
     config_entry.add_update_listener(update_listener)
     # Add calendar
-    hass.async_add_job(
+    hass.async_create_task(
         hass.config_entries.async_forward_entry_setup(
             config_entry, const.CALENDAR_PLATFORM
         )
