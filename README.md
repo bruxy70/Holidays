@@ -8,15 +8,17 @@ The `holidays` component is a **Home Assistant** integration that creates `calen
 It's primary purpose is to work with [garbage_collection](https://github.com/bruxy70/Garbage-Collection#public-holidays) integration to automatically move entities with `manual_update` automation **blueprints**. But it can also be used independently to show the next public holiday in a given country (or multiple countries).
 
 ## Table of Contents
+
 * [Installation](#installation)
-  + [Manual Installation](#manual-installation)
-  + [Installation via Home Assistant Community Store (HACS)](#installation-via-home-assistant-community-store-hacs)
+  * [Manual Installation](#manual-installation)
+  * [Installation via Home Assistant Community Store (HACS)](#installation-via-home-assistant-community-store-hacs)
 * [Parameters](#Parameters)
 * [State and Attributes](#state-and-attributes)
 
 ## Installation
 
 ### MANUAL INSTALLATION
+
 1. Download the
    [latest release](https://github.com/bruxy70/Holidays/releases/latest).
 2. Unpack the release and copy the `custom_components/holidays` directory
@@ -26,6 +28,7 @@ It's primary purpose is to work with [garbage_collection](https://github.com/bru
 4. Add the `Holidays` integration
 
 ### INSTALLATION VIA Home Assistant Community Store (HACS)
+
 1. Ensure that [HACS](https://hacs.xyz/) is installed.
 2. Search for and install the "Holidays" integration.
 4. Restart Home Assistant.
@@ -33,19 +36,22 @@ It's primary purpose is to work with [garbage_collection](https://github.com/bru
 6. Configure the parameters
 
 ## Parameters
-|Parameter |Required|Description
-|:----------|----------|------------
-| `country` | Yes | Country holidays - the country code (see [holidays](https://github.com/dr-prodigy/python-holidays) for the list of valid country codes).<br/>*Example:* `US` 
-| `holiday_pop_named` | No | Ignore holidays (list of holiday names) *Example:* `"Columbus Day"`, `"Veterans Day"`
-| `prov` | No | Province (see [holidays](https://github.com/dr-prodigy/python-holidays) ).
-| `state` | No | State (see [holidays](https://github.com/dr-prodigy/python-holidays) ).
-| `observed` | No | Observed (see [holidays](https://github.com/dr-prodigy/python-holidays) ).
+
+| Parameter | Required | Description
+| :-- | :-- | :--
+| `Country` | Yes | Country holidays - the country code (see [holidays](https://github.com/dr-prodigy/python-holidays) for the list of valid country codes).<br/>*Example:* `US`
+| `Observed` | No | Observed - when holidays are celebrated on dates that are not the actual event's anniversary date (see [holidays](https://github.com/dr-prodigy/python-holidays) ).
+| `Subdivision` | No | State/Province/District... (see [holidays](https://github.com/dr-prodigy/python-holidays) ).
+| `Pop named holidays` | No | Ignore holidays (select from the list of holiday names) *Example:* `"Columbus Day"`, `"Veterans Day"`
 
 ## State and Attributes
+
 ### `state`
+
 The State contains the number of days to the next country holiday. It is `0` if today is a public holiday.
 
 ### Attributes
+
 | Attribute | Description
 |:----------|------------
 | `next_date` | The date of the next holiday
