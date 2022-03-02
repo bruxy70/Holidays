@@ -3,5 +3,5 @@
   "zip_release": true,
   "filename": "holidays.zip",
   "domains": ["calendar"],
-  "homeassistant": "2022.3.0b0"
+  "homeassistant": "2022.3.0"
 }
