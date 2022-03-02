@@ -162,10 +162,7 @@ class Holidays(RestoreEntity):
             ).astimezone()
             res[const.ATTR_NEXT_HOLIDAY] = self._next_holiday
         res[const.ATTR_LAST_UPDATED] = self._last_updated
-        holidays = ""
-        for key, value in self._holiday_names.items():
-            holidays += f"\n  {key}: {value}"
-        res[const.ATTR_HOLIDAYS] = holidays
+        res[const.ATTR_HOLIDAYS] = self._holiday_names
         return res
 
     @property
