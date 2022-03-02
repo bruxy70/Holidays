@@ -1,10 +1,9 @@
 """Test calendar for simple integration."""
 from datetime import date
 
+from custom_components.holidays import const
 from homeassistant.core import HomeAssistant
 from pytest_homeassistant_custom_component.common import MockConfigEntry
-
-from custom_components.holidays import const
 
 ERROR_STATE = "Next holiday should be in {} days, not {}."
 ERROR_NAME = "Next holiday should be {}, not {}."
@@ -28,7 +27,7 @@ async def test_uk(hass: HomeAssistant) -> None:
     next_date = uk_holidays.attributes["next_date"]
     next_holiday = uk_holidays.attributes["next_holiday"]
     holidays = uk_holidays.attributes["holidays"]
-    len_holidays = len(holidays.strip().split("\n"))
+    len_holidays = len(holidays)
     assert state == "9", ERROR_STATE.format(9, state)
     assert next_holiday == "Good Friday", ERROR_NAME.format("Good Friday", next_holiday)
     assert next_date.date() == date(2020, 4, 10), ERROR_DATE.format(
@@ -53,7 +52,7 @@ async def test_cz(hass: HomeAssistant) -> None:
     next_date = cz_holidays.attributes["next_date"]
     next_holiday = cz_holidays.attributes["next_holiday"]
     holidays = cz_holidays.attributes["holidays"]
-    len_holidays = len(holidays.strip().split("\n"))
+    len_holidays = len(holidays)
     assert state == "9", ERROR_STATE.format(9, state)
     assert next_holiday == "Velký pátek", ERROR_NAME.format("Velký pátek", next_holiday)
     assert next_date.date() == date(2020, 4, 10), ERROR_DATE.format(
