@@ -4,7 +4,7 @@ from datetime import date, datetime, timedelta
 from typing import Dict, List, Optional
 
 import homeassistant.util.dt as dt_util
-from homeassistant.components.calendar import CalendarEventDevice
+from homeassistant.components.calendar import CalendarEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import ATTR_HIDDEN, CONF_ENTITIES, CONF_NAME
 
@@ -26,7 +26,7 @@ def now() -> datetime:
     return dt_util.now()
 
 
-class Holidays(CalendarEventDevice):
+class Holidays(CalendarEntity):
     """Holidays Sensor class."""
 
     def __init__(self, config_entry: ConfigEntry):
