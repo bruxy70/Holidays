@@ -1,7 +1,7 @@
 """Calendar platform for holidays."""
 import logging
 from datetime import date, datetime, timedelta
-from typing import Optional
+from typing import Any, Optional
 
 import homeassistant.util.dt as dt_util
 from homeassistant.components.calendar import CalendarEntity, CalendarEvent
@@ -139,11 +139,10 @@ class Holidays(CalendarEntity):
     @property
     def state(self) -> Optional[int]:
         """Return the calendar state."""
-        today = now().date()
-        try:
-            return (self._next_date - today).days
-        except TypeError:
+        if self._next_date is None:
             return None
+        today = now().date()
+        return (self._next_date - today).days
 
     @property
     def icon(self) -> str:
@@ -153,7 +152,7 @@ class Holidays(CalendarEntity):
     @property
     def extra_state_attributes(self) -> dict:
         """Return the state attributes."""
-        res = {}
+        res: dict[str, Any] = {}
         if self._next_date is None:
             res[const.ATTR_NEXT_DATE] = None
             res[const.ATTR_NEXT_HOLIDAY] = None
