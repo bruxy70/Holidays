@@ -1,7 +1,9 @@
 """Calendar platform for holidays."""
+from __future__ import annotations
+
 import logging
 from datetime import date, datetime, timedelta
-from typing import Any, Optional
+from typing import Any
 
 import homeassistant.util.dt as dt_util
 from homeassistant.components.calendar import CalendarEntity, CalendarEvent
@@ -46,10 +48,10 @@ class Holidays(CalendarEntity):
         self._holiday_pop_named = config.get(const.CONF_HOLIDAY_POP_NAMED)
         self._holidays: list[date] = []
         self._holiday_names: dict = {}
-        self._event: Optional[CalendarEvent] = None
-        self._next_date: Optional[date] = None
-        self._next_holiday: Optional[str] = None
-        self._last_updated: Optional[datetime] = None
+        self._event: CalendarEvent | None = None
+        self._next_date: date | None = None
+        self._next_holiday: str | None = None
+        self._last_updated: datetime | None = None
         self._entities = config.get(CONF_ENTITIES)
         self._date_format = "%d-%b-%Y"
         self._icon_normal = config.get(const.CONF_ICON_NORMAL)
@@ -113,12 +115,12 @@ class Holidays(CalendarEntity):
         del self.hass.data[const.DOMAIN][const.CALENDAR_PLATFORM][self.entity_id]
 
     @property
-    def unique_id(self) -> Optional[str]:
+    def unique_id(self) -> str | None:
         """Return a unique ID to use for this calendar."""
         return self.config_entry.data.get("unique_id", None)
 
     @property
-    def device_info(self) -> Optional[DeviceInfo]:
+    def device_info(self) -> DeviceInfo | None:
         """Return device info."""
         return DeviceInfo(
             identifiers={(const.DOMAIN, self.unique_id)},
@@ -132,12 +134,12 @@ class Holidays(CalendarEntity):
         return self._name
 
     @property
-    def event(self) -> Optional[CalendarEvent]:
+    def event(self) -> CalendarEvent | None:
         """Return the next upcoming event."""
         return self._event
 
     @property
-    def state(self) -> Optional[int]:
+    def state(self) -> int | None:
         """Return the calendar state."""
         if self._next_date is None:
             return None
@@ -218,7 +220,7 @@ class Holidays(CalendarEntity):
             ready_for_update = True
         return ready_for_update
 
-    async def async_next_date(self, first_date: date) -> Optional[date]:
+    async def async_next_date(self, first_date: date) -> date | None:
         """Get next date from self._holidays."""
         for holiday in self._holidays:
             if holiday < first_date:
@@ -226,7 +228,7 @@ class Holidays(CalendarEntity):
             return holiday
         return None
 
-    def holiday_name(self, holiday_date: Optional[date]) -> Optional[str]:
+    def holiday_name(self, holiday_date: date | None) -> str | None:
         """Get holiday name for a date."""
         try:
             return self._holiday_names[f"{holiday_date}"]
