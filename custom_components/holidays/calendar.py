@@ -1,12 +1,13 @@
 """Calendar platform for holidays."""
 import logging
 from datetime import date, datetime, timedelta
-from typing import Dict, List, Optional
+from typing import Optional
 
 import homeassistant.util.dt as dt_util
-from homeassistant.components.calendar import CalendarEntity
+from homeassistant.components.calendar import CalendarEntity, CalendarEvent
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import ATTR_HIDDEN, CONF_ENTITIES, CONF_NAME
+from homeassistant.helpers.entity import DeviceInfo
 
 from . import const, create_holidays
 
@@ -16,7 +17,7 @@ SCAN_INTERVAL = timedelta(seconds=10)
 THROTTLE_INTERVAL = timedelta(seconds=60)
 
 
-async def async_setup_entry(_, config_entry: ConfigEntry, async_add_devices):
+async def async_setup_entry(_, config_entry: ConfigEntry, async_add_devices) -> None:
     """Create garbage collection entities defined in config_flow and add them to HA."""
     async_add_devices([Holidays(config_entry)], True)
 
@@ -29,7 +30,7 @@ def now() -> datetime:
 class Holidays(CalendarEntity):
     """Holidays Sensor class."""
 
-    def __init__(self, config_entry: ConfigEntry):
+    def __init__(self, config_entry: ConfigEntry) -> None:
         """Read configuration and initialise class variables."""
         config = config_entry.data
         self.config_entry = config_entry
@@ -43,9 +44,9 @@ class Holidays(CalendarEntity):
         self._holiday_subdiv = config.get(const.CONF_SUBDIV, "")
         self._holiday_observed = config.get(const.CONF_OBSERVED, True)
         self._holiday_pop_named = config.get(const.CONF_HOLIDAY_POP_NAMED)
-        self._holidays: List[date] = []
-        self._holiday_names: Dict = {}
-        self._event: Optional[Dict] = None
+        self._holidays: list[date] = []
+        self._holiday_names: dict = {}
+        self._event: Optional[CalendarEvent] = None
         self._next_date: Optional[date] = None
         self._next_holiday: Optional[str] = None
         self._last_updated: Optional[datetime] = None
@@ -112,31 +113,31 @@ class Holidays(CalendarEntity):
         del self.hass.data[const.DOMAIN][const.CALENDAR_PLATFORM][self.entity_id]
 
     @property
-    def unique_id(self):
+    def unique_id(self) -> Optional[str]:
         """Return a unique ID to use for this calendar."""
         return self.config_entry.data.get("unique_id", None)
 
     @property
-    def device_info(self):
+    def device_info(self) -> Optional[DeviceInfo]:
         """Return device info."""
-        return {
-            "identifiers": {(const.DOMAIN, self.unique_id, None)},
-            "name": self.name,
-            "manufacturer": "bruxy70",
-        }
+        return DeviceInfo(
+            identifiers={(const.DOMAIN, self.unique_id)},
+            name=self.name,
+            manufacturer="bruxy70",
+        )
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Return the name of the calendar."""
         return self._name
 
     @property
-    def event(self):
+    def event(self) -> Optional[CalendarEvent]:
         """Return the next upcoming event."""
         return self._event
 
     @property
-    def state(self):
+    def state(self) -> Optional[int]:
         """Return the calendar state."""
         today = now().date()
         try:
@@ -145,12 +146,12 @@ class Holidays(CalendarEntity):
             return None
 
     @property
-    def icon(self):
+    def icon(self) -> str:
         """Return the entity icon."""
         return self._icon
 
     @property
-    def extra_state_attributes(self):
+    def extra_state_attributes(self) -> dict:
         """Return the state attributes."""
         res = {}
         if self._next_date is None:
@@ -166,16 +167,16 @@ class Holidays(CalendarEntity):
         return res
 
     @property
-    def holidays(self):
+    def holidays(self) -> dict:
         """Return the dictionary of holidays."""
         return self._holiday_names
 
     @property
-    def device_class(self):
+    def device_class(self) -> str:
         """Return the class of the calendar."""
         return const.DEVICE_CLASS
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """Return main calendar parameters."""
         return (
             f"Holidays[name: {self.name}, "
@@ -186,9 +187,9 @@ class Holidays(CalendarEntity):
 
     async def async_get_events(
         self, _, start_datetime: datetime, end_datetime: datetime
-    ) -> List[Dict]:
+    ) -> list[CalendarEvent]:
         """Get all tasks in a specific time frame."""
-        events: List[Dict] = []
+        events: list[CalendarEvent] = []
         start_date = start_datetime.date()
         end_date = end_datetime.date()
         start = await self.async_next_date(start_date)
@@ -197,13 +198,11 @@ class Holidays(CalendarEntity):
                 end = start + timedelta(days=1)
             except TypeError:
                 end = start
-            event = {
-                "uid": self.unique_id,
-                "summary": self.holiday_name(start),
-                "start": {"date": start.strftime("%Y-%m-%d")},
-                "end": {"date": end.strftime("%Y-%m-%d")},
-                "allDay": True,
-            }
+            event = CalendarEvent(
+                summary=self.holiday_name(start),
+                start=start,
+                end=end,
+            )
             events.append(event)
             start = await self.async_next_date(start + timedelta(days=1))
         return events
@@ -256,12 +255,6 @@ class Holidays(CalendarEntity):
             )
             start = self._next_date
             end = start + timedelta(days=1)
-            self._event = {
-                "uid": self.entity_id,
-                "summary": self._name,
-                "start": {"date": start.strftime("%Y-%m-%d")},
-                "end": {"date": end.strftime("%Y-%m-%d")},
-                "allDay": True,
-            }
+            self._event = CalendarEvent(summary=self._name, start=start, end=end)
         else:
             self._event = None
