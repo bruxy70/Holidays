@@ -354,3 +354,4 @@ MigrationBackup/
 Virtual env
 venv/
 .DS_Store
+.DS_Store

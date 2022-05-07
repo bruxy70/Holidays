@@ -202,10 +202,10 @@ class Holidays(CalendarEntity):
     def __repr__(self) -> str:
         """Return main calendar parameters."""
         return (
-            f"Holidays[name: {self.name}, "
-            f"entity_id: {self.entity_id}, "
-            f"state: {self.state}"
-            f"attributes: {self.extra_state_attributes}]"
+            f"Holidays(name={self.name}, "
+            f"entity_id={self.entity_id}, "
+            f"state={self.state}"
+            f"attributes={self.extra_state_attributes})"
         )
 
     async def async_get_events(
