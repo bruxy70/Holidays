@@ -17,6 +17,8 @@ async def test_config_flow(hass: HomeAssistant) -> None:
     result = await hass.config_entries.flow.async_init(
         DOMAIN, context={"source": config_entries.SOURCE_USER}
     )
+    assert "type" in result and "step_id" in result and "flow_id" in result
+
     # Check that the config flow shows the user form as the first step
     assert result["type"] == data_entry_flow.RESULT_TYPE_FORM
     assert result["step_id"] == "user"
@@ -26,6 +28,12 @@ async def test_config_flow(hass: HomeAssistant) -> None:
     result = await hass.config_entries.flow.async_configure(
         result["flow_id"],
         user_input={"name": "English calendar", "country": "GB"},
+    )
+    assert (
+        "type" in result
+        and "step_id" in result
+        and "flow_id" in result
+        and "errors" in result
     )
 
     # Should pass to the subdiv step
@@ -37,6 +45,12 @@ async def test_config_flow(hass: HomeAssistant) -> None:
     result = await hass.config_entries.flow.async_configure(
         result["flow_id"],
         user_input={"subdiv": "England"},
+    )
+    assert (
+        "type" in result
+        and "step_id" in result
+        and "flow_id" in result
+        and "errors" in result
     )
     # Should pass to the pop step
     assert result["type"] == data_entry_flow.RESULT_TYPE_FORM
@@ -52,6 +66,7 @@ async def test_config_flow(hass: HomeAssistant) -> None:
             result["flow_id"],
             user_input={},
         )
+    assert "type" in result and "data" in result
     # Should create entry
     assert result["type"] == data_entry_flow.RESULT_TYPE_CREATE_ENTRY
     del result["data"]["unique_id"]
@@ -75,6 +90,7 @@ async def test_options_flow(hass: HomeAssistant) -> None:
 
     # Initialise Options Flow
     result = await hass.config_entries.options.async_init(config_entry.entry_id)
+    assert "type" in result and "step_id" in result and "flow_id" in result
 
     # Check that the first options step is user
     assert result["type"] == data_entry_flow.RESULT_TYPE_FORM
@@ -84,6 +100,12 @@ async def test_options_flow(hass: HomeAssistant) -> None:
     result = await hass.config_entries.options.async_configure(
         result["flow_id"],
         user_input={"country": "GB"},
+    )
+    assert (
+        "type" in result
+        and "step_id" in result
+        and "flow_id" in result
+        and "errors" in result
     )
 
     # Should pass to the subdiv step
@@ -96,6 +118,12 @@ async def test_options_flow(hass: HomeAssistant) -> None:
         result["flow_id"],
         user_input={"subdiv": "England"},
     )
+    assert (
+        "type" in result
+        and "step_id" in result
+        and "flow_id" in result
+        and "errors" in result
+    )
     # Should pass to the pop step
     assert result["type"] == data_entry_flow.RESULT_TYPE_FORM
     assert result["step_id"] == "pop"
@@ -106,6 +134,7 @@ async def test_options_flow(hass: HomeAssistant) -> None:
         result["flow_id"],
         user_input={},
     )
+    assert "type" in result and "data" in result
     # Should create entry
     assert result["type"] == data_entry_flow.RESULT_TYPE_CREATE_ENTRY
     assert result["data"] == {"country": "GB", "subdiv": "England"}

@@ -1,9 +1,10 @@
 """Test calendar for simple integration."""
 from datetime import date
 
-from custom_components.holidays import const
 from homeassistant.core import HomeAssistant
 from pytest_homeassistant_custom_component.common import MockConfigEntry
+
+from custom_components.holidays import const
 
 ERROR_STATE = "Next holiday should be in {} days, not {}."
 ERROR_NAME = "Next holiday should be {}, not {}."
