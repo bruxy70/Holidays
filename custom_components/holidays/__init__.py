@@ -101,7 +101,7 @@ async def async_migrate_entry(_, config_entry: ConfigEntry) -> bool:
         if new_data.get(const.CONF_COUNTRY) == "Wales":
             new_data[const.CONF_COUNTRY] = "GB"
             new_data[const.CONF_SUBDIV] = "Wales"
-    config_entry.version = const.VERSION
+    config_entry.version = const.CONFIG_VERSION
     config_entry.data = {**new_data}
     config_entry.options = {**new_options}
     _LOGGER.info(
