@@ -160,7 +160,7 @@ class HolidaysFlowHandler(config_entries.ConfigFlow):
         self.shared_class.hass = self.hass
 
     async def async_step_user(
-        self, user_input: dict = {}
+        self, user_input: dict | None = None
     ):  # pylint: disable=dangerous-default-value
         """Step 1 - user init."""
         if self.shared_class.step1_user_init(user_input):
@@ -174,7 +174,7 @@ class HolidaysFlowHandler(config_entries.ConfigFlow):
         )
 
     async def async_step_subdiv(
-        self, user_input: dict = {}, re_entry=True
+        self, user_input: dict | None = None, re_entry=True
     ):  # pylint: disable=dangerous-default-value
         """Step 2 - enter country subdivision (e.g. states).
 
@@ -194,7 +194,7 @@ class HolidaysFlowHandler(config_entries.ConfigFlow):
         )
 
     async def async_step_pop(
-        self, user_input: dict = {}, re_entry=True
+        self, user_input: dict | None = None, re_entry=True
     ):  # pylint: disable=dangerous-default-value
         """Step 3 - enter holidays to pop.
 
@@ -253,7 +253,7 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
         )
 
     async def async_step_subdiv(
-        self, user_input: dict = {}, re_entry=True
+        self, user_input: dict | None = None, re_entry=True
     ):  # pylint: disable=dangerous-default-value
         """Step 2 - enter country subdivision (e.g. states).
 
@@ -271,7 +271,7 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
         )
 
     async def async_step_pop(
-        self, user_input: dict = {}, re_entry=True
+        self, user_input: dict | None = None, re_entry=True
     ):  # pylint: disable=dangerous-default-value
         """Step 3 - enter holidays to pop.
 
