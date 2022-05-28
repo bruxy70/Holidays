@@ -102,7 +102,7 @@ class HolidaysShared:
         self.data_schema[self.optional(const.CONF_OBSERVED, user_input)] = bool
         return False
 
-    def step2_subdiv(self, user_input: dict) -> bool:
+    def step2_subdiv(self, user_input: dict | None) -> bool:
         """Step 2 - Pop countries."""
         self.errors.clear()
 
@@ -118,7 +118,7 @@ class HolidaysShared:
         self.data_schema[self.optional(const.CONF_SUBDIV, user_input)] = vol.In(subdivs)
         return False
 
-    def step3_pop(self, user_input: dict) -> bool:
+    def step3_pop(self, user_input: dict | None) -> bool:
         """Step 2 - Pop countries."""
         self.errors = {}
 
