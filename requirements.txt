@@ -1,2 +1,2 @@
 holidays>=0.13
-python-dateutil>=2.8.2
+voluptuous>=0.13.0
