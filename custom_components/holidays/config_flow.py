@@ -171,11 +171,3 @@ class HolidaysConfigFlowHandler(SchemaConfigFlowHandler, domain=const.DOMAIN):
         input from the config flow steps.
         """
         return cast(str, options["name"]) if "name" in options else ""
-
-    @callback
-    @staticmethod
-    def async_options_flow_finished(
-        hass: HomeAssistant, options: Mapping[str, Any]
-    ) -> None:
-        """Force update."""
-        # TBD

@@ -22,6 +22,7 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> b
         "Setting %s from ConfigFlow",
         config_entry.title,
     )
+    config_entry.add_update_listener(update_listener)
     # Add calendar
     hass.async_create_task(
         hass.config_entries.async_forward_entry_setup(
@@ -91,6 +92,14 @@ async def async_migrate_entry(_, config_entry: ConfigEntry) -> bool:
         config_entry.version,
     )
     return True
+
+
+async def update_listener(hass: HomeAssistant, entry) -> None:
+    """Update listener. To re-create device after options update"""
+    await hass.config_entries.async_forward_entry_unload(entry, const.CALENDAR_PLATFORM)
+    hass.async_add_job(
+        hass.config_entries.async_forward_entry_setup(entry, const.CALENDAR_PLATFORM)
+    )
 
 
 def create_holidays(
