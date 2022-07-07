@@ -9,7 +9,7 @@ import homeassistant.helpers.config_validation as cv
 import homeassistant.util.dt as dt_util
 import voluptuous as vol
 from homeassistant.const import CONF_NAME
-from homeassistant.core import HomeAssistant, callback
+from homeassistant.core import callback
 from homeassistant.helpers import selector
 from homeassistant.helpers.schema_config_entry_flow import (
     SchemaConfigFlowHandler,
@@ -82,7 +82,7 @@ def optional(
 
 
 def general_options_schema(
-    handler: SchemaConfigFlowHandler | SchemaOptionsFlowHandler,
+    _,
     options: dict[str, Any],
 ) -> vol.Schema:
     """Generate options schema."""
@@ -112,7 +112,7 @@ def general_config_schema(
 
 
 def subdiv_config_schema(
-    handler: SchemaConfigFlowHandler | SchemaOptionsFlowHandler,
+    _,
     options: dict[str, Any],
 ) -> vol.Schema:
     """Second step."""
@@ -125,7 +125,7 @@ def subdiv_config_schema(
 
 
 def pop_config_schema(
-    handler: SchemaConfigFlowHandler | SchemaOptionsFlowHandler,
+    _,
     options: dict[str, Any],
 ) -> vol.Schema:
     """Last step."""
@@ -157,6 +157,7 @@ OPTIONS_FLOW: dict[str, SchemaFlowFormStep | SchemaFlowMenuStep] = {
 }
 
 
+# mypy: ignore-errors
 class HolidaysConfigFlowHandler(SchemaConfigFlowHandler, domain=const.DOMAIN):
     """Handle a config or options flow for Holdays."""
 
