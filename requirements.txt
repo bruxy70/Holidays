@@ -1,2 +1,2 @@
-holidays>=0.13
+holidays>=0.14.2
 voluptuous>=0.13.0
