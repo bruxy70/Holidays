@@ -56,12 +56,12 @@ class Holidays(CalendarEntity):
 
     def __init__(self, config_entry: ConfigEntry) -> None:
         """Read configuration and initialise class variables."""
-        config = config_entry.data
+        config = config_entry.options
         self.config_entry = config_entry
         self._attr_name: str = (
             config_entry.title
             if config_entry.title is not None
-            else config.get(CONF_NAME)
+            else config_entry.data.get(CONF_NAME)
         )
         self._hidden = config.get(ATTR_HIDDEN, False)
         self._country = config.get(const.CONF_COUNTRY, "")
@@ -141,7 +141,10 @@ class Holidays(CalendarEntity):
     @property
     def unique_id(self) -> str | None:
         """Return a unique ID to use for this calendar."""
-        return self.config_entry.data.get("unique_id", None)
+        if "unique_id" in self.config_entry.data:
+            # From legacy config
+            return self.config_entry.data.get("unique_id")
+        return self.config_entry.entry_id
 
     @property
     def device_info(self) -> DeviceInfo | None:
@@ -269,7 +272,7 @@ class Holidays(CalendarEntity):
 
     async def async_update_state(self) -> None:
         """Pick the first event from holiday dates, update attributes."""
-        _LOGGER.debug("(%s) Looking for next collection", self._attr_name)
+        _LOGGER.debug("(%s) Looking for the next holiday", self._attr_name)
         today = now().date()
         self._next_date = await self.async_next_date(today)
         self._next_holiday = self.holiday_name(self._next_date)

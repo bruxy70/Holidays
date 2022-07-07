@@ -17,7 +17,7 @@ async def test_uk(hass: HomeAssistant) -> None:
 
     config_entry: MockConfigEntry = MockConfigEntry(
         domain=const.DOMAIN,
-        data={"country": "GB", "subdiv": "England"},
+        options={"country": "GB", "subdiv": "England"},
         title="UK Holidays",
     )
     config_entry.add_to_hass(hass)
@@ -42,7 +42,7 @@ async def test_cz(hass: HomeAssistant) -> None:
 
     config_entry: MockConfigEntry = MockConfigEntry(
         domain=const.DOMAIN,
-        data={"country": "CZ"},
+        options={"country": "CZ"},
         title="CZ Holidays",
     )
     config_entry.add_to_hass(hass)
