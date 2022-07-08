@@ -214,14 +214,16 @@ class Holidays(CalendarEntity):
         )
 
     async def async_get_events(
-        self, _, start_datetime: datetime, end_datetime: datetime
+        self, _, start_date: datetime, end_date: datetime
     ) -> list[CalendarEvent]:
         """Get all tasks in a specific time frame."""
         events: list[CalendarEvent] = []
-        start_date = start_datetime.date()
-        end_date = end_datetime.date()
-        start = await self.async_next_date(start_date)
-        while start is not None and start >= start_date and start <= end_date:
+        start = await self.async_next_date(start_date.date())
+        while (
+            start is not None
+            and start >= start_date.date()
+            and start <= end_date.date()
+        ):
             try:
                 end = start + timedelta(days=1)
             except TypeError:
