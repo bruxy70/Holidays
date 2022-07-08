@@ -87,6 +87,8 @@ async def test_options_flow(hass: HomeAssistant) -> None:
         title="UK Holidays",
     )
     config_entry.add_to_hass(hass)
+    await hass.config_entries.async_setup(config_entry.entry_id)
+    await hass.async_block_till_done()
 
     # Initialise Options Flow
     result = await hass.config_entries.options.async_init(config_entry.entry_id)
