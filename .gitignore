@@ -351,7 +351,7 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 
-Virtual env
+#Virtual env
 venv/
-.DS_Store
+
 .DS_Store

@@ -88,11 +88,15 @@ def general_options_schema(
     """Generate options schema."""
     return vol.Schema(
         {
-            optional(const.CONF_ICON_NORMAL, options, const.DEFAULT_ICON_NORMAL): str,
-            optional(const.CONF_ICON_TODAY, options, const.DEFAULT_ICON_TODAY): str,
+            optional(
+                const.CONF_ICON_NORMAL, options, const.DEFAULT_ICON_NORMAL
+            ): selector.IconSelector(),
+            optional(
+                const.CONF_ICON_TODAY, options, const.DEFAULT_ICON_TODAY
+            ): selector.IconSelector(),
             optional(
                 const.CONF_ICON_TOMORROW, options, const.DEFAULT_ICON_TOMORROW
-            ): str,
+            ): selector.IconSelector(),
             optional(const.CONF_COUNTRY, options): vol.In(country_codes),
             optional(const.CONF_OBSERVED, options, True): bool,
         }
