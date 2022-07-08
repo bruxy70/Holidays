@@ -10,6 +10,7 @@ from homeassistant.components.calendar import CalendarEntity, CalendarEvent
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import ATTR_HIDDEN, CONF_ENTITIES, CONF_NAME
 from homeassistant.helpers.entity import DeviceInfo
+from homeassistant.helpers.restore_state import RestoreEntity
 
 from . import const, create_holidays
 
@@ -29,7 +30,7 @@ def now() -> datetime:
     return dt_util.now()
 
 
-class Holidays(CalendarEntity):
+class Holidays(CalendarEntity, RestoreEntity):
     """Holidays Sensor class."""
 
     __slots__ = (
@@ -132,6 +133,10 @@ class Holidays(CalendarEntity):
         if const.CALENDAR_PLATFORM not in self.hass.data[const.DOMAIN]:
             self.hass.data[const.DOMAIN][const.CALENDAR_PLATFORM] = {}
         self.hass.data[const.DOMAIN][const.CALENDAR_PLATFORM][self.entity_id] = self
+
+        if (state := await self.async_get_last_state()) is not None:
+            if const.ATTR_HOLIDAYS in state.attributes:
+                self._holiday_names = state.attributes[const.ATTR_HOLIDAYS].copy()
 
     async def async_will_remove_from_hass(self) -> None:
         """When calendar is added to hassio, remove it."""
