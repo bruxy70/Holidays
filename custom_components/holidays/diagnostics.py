@@ -1,7 +1,7 @@
 """Diagnostics support for Holidays."""
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, Dict
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
