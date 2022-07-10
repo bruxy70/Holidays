@@ -45,13 +45,13 @@ async def async_remove_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
 
 async def async_migrate_entry(_, config_entry: ConfigEntry) -> bool:
     """Migrate old entry."""
+    if config_entry.version == const.CONFIG_VERSION:
+        return True
     _LOGGER.info(
         "Migrating %s from version %s", config_entry.title, config_entry.version
     )
-    new_data: Dict[str, Any]
-    new_options: Dict[str, Any]
-    new_data = {**config_entry.data}
-    new_options = {**config_entry.options}
+    new_data: Dict[str, Any] = {**config_entry.data}
+    new_options: Dict[str, Any] = {**config_entry.options}
     if config_entry.version == 1:
         if new_data.get(const.CONF_PROV, "") != "":
             new_data[const.CONF_SUBDIV] = new_data.get(const.CONF_PROV)
