@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, cast
+from typing import Any, Dict, cast
 
 import holidays
 import homeassistant.helpers.config_validation as cv
@@ -25,7 +25,7 @@ country_codes: list = sorted([holiday for holiday in supported_countries])
 
 
 @callback
-def choose_second_step(options: dict[str, Any]) -> str:
+def choose_second_step(options: Dict[str, Any]) -> str:
     """Return next step_id for options flow."""
     subdivs = supported_countries[options.get(const.CONF_COUNTRY)]
     if subdivs:
@@ -39,7 +39,7 @@ def choose_second_step(options: dict[str, Any]) -> str:
 
 
 @callback
-def choose_third_step(options: dict[str, Any]) -> str:
+def choose_third_step(options: Dict[str, Any]) -> str:
     """Return next step_id for options flow."""
     if const.CONF_HOLIDAY_POP_NAMED in options:
         # Remove holidays that do not exist
@@ -56,7 +56,7 @@ def choose_third_step(options: dict[str, Any]) -> str:
 
 
 def required(
-    key: str, options: dict[str, Any], default: Any | None = None
+    key: str, options: Dict[str, Any], default: Any | None = None
 ) -> vol.Required:
     """Return vol.Required."""
     if isinstance(options, dict) and key in options:
@@ -69,7 +69,7 @@ def required(
 
 
 def optional(
-    key: str, options: dict[str, Any], default: Any | None = None
+    key: str, options: Dict[str, Any], default: Any | None = None
 ) -> vol.Optional:
     """Return vol.Optional."""
     if isinstance(options, dict) and key in options:
@@ -83,7 +83,7 @@ def optional(
 
 def general_options_schema(
     _,
-    options: dict[str, Any],
+    options: Dict[str, Any],
 ) -> vol.Schema:
     """Generate options schema."""
     return vol.Schema(
@@ -105,7 +105,7 @@ def general_options_schema(
 
 def general_config_schema(
     handler: SchemaConfigFlowHandler | SchemaOptionsFlowHandler,
-    options: dict[str, Any],
+    options: Dict[str, Any],
 ) -> vol.Schema:
     """Generate config schema."""
     return vol.Schema(
@@ -117,7 +117,7 @@ def general_config_schema(
 
 def subdiv_config_schema(
     _,
-    options: dict[str, Any],
+    options: Dict[str, Any],
 ) -> vol.Schema:
     """Second step."""
     subdivs = supported_countries[options.get(const.CONF_COUNTRY)]
@@ -130,7 +130,7 @@ def subdiv_config_schema(
 
 def pop_config_schema(
     _,
-    options: dict[str, Any],
+    options: Dict[str, Any],
 ) -> vol.Schema:
     """Last step."""
     hol = create_holidays(
@@ -149,12 +149,12 @@ def pop_config_schema(
     )
 
 
-CONFIG_FLOW: dict[str, SchemaFlowFormStep | SchemaFlowMenuStep] = {
+CONFIG_FLOW: Dict[str, SchemaFlowFormStep | SchemaFlowMenuStep] = {
     "user": SchemaFlowFormStep(general_config_schema, next_step=choose_second_step),
     "subdiv": SchemaFlowFormStep(subdiv_config_schema, next_step=choose_third_step),
     "pop": SchemaFlowFormStep(pop_config_schema),
 }
-OPTIONS_FLOW: dict[str, SchemaFlowFormStep | SchemaFlowMenuStep] = {
+OPTIONS_FLOW: Dict[str, SchemaFlowFormStep | SchemaFlowMenuStep] = {
     "init": SchemaFlowFormStep(general_options_schema, next_step=choose_second_step),
     "subdiv": SchemaFlowFormStep(subdiv_config_schema, next_step=choose_third_step),
     "pop": SchemaFlowFormStep(pop_config_schema),

@@ -104,7 +104,7 @@ def create_holidays(
     years: list, country: str, subdiv: str, observed: bool
 ) -> holidays.HolidayBase:
     """Create holidays from parameters."""
-    kwargs: dict[str, Any] = {"years": years}
+    kwargs: Dict[str, Any] = {"years": years}
     if subdiv != "":
         kwargs["subdiv"] = subdiv
     kwargs["observed"] = observed

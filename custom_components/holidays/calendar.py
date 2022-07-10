@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import logging
 from datetime import date, datetime, timedelta
-from typing import Any
+from typing import Any, Dict
 
 import homeassistant.util.dt as dt_util
 from homeassistant.components.calendar import CalendarEntity, CalendarEvent
@@ -186,7 +186,7 @@ class Holidays(CalendarEntity, RestoreEntity):
     @property
     def extra_state_attributes(self) -> dict:
         """Return the state attributes."""
-        res: dict[str, Any] = {}
+        res: Dict[str, Any] = {}
         if self._next_date is None:
             res[const.ATTR_NEXT_DATE] = None
             res[const.ATTR_NEXT_HOLIDAY] = None
