@@ -50,7 +50,7 @@ def choose_third_step(options: Dict[str, Any]) -> str:
             options.get(const.CONF_OBSERVED, True),
         )
         for pop in options[const.CONF_HOLIDAY_POP_NAMED]:
-            if pop not in hol:
+            if pop not in hol or "(Observed)" in pop:
                 del options[pop]
     return "pop"
 
@@ -139,7 +139,7 @@ def pop_config_schema(
         options.get(const.CONF_SUBDIV, ""),
         options.get(const.CONF_OBSERVED, True),
     )
-    list_holidays = {h: h for h in sorted(hol.values())}
+    list_holidays = {h: h for h in sorted(hol.values()) if "(Observed)" not in h}
     return vol.Schema(
         {
             optional(const.CONF_HOLIDAY_POP_NAMED, options): cv.multi_select(

@@ -14,7 +14,7 @@ def now_fixed():
     """Return fixed date."""
     with patch(
         FUNCTION_PATH,
-        return_value=datetime(2020, 4, 1, 12, 0, 0, 0),
+        return_value=datetime(2020, 3, 1, 12, 0, 0, 0),
     ):
         yield
 
