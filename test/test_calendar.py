@@ -67,7 +67,7 @@ async def test_cz(hass: HomeAssistant) -> None:
 
 
 async def test_pop(hass: HomeAssistant) -> None:
-    """Test CZ Holidays."""
+    """Test Pop Holidays."""
 
     config_entry: MockConfigEntry = MockConfigEntry(
         domain=const.DOMAIN,

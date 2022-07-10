@@ -38,9 +38,9 @@ async def test_device_info(hass: HomeAssistant) -> None:
     config_entry.add_to_hass(hass)
     await hass.config_entries.async_setup(config_entry.entry_id)
     await hass.async_block_till_done()
-    sensor = hass.data["holidays"]["calendar"]["calendar.cz_holidays"]
-    assert sensor.device_info == {
-        "identifiers": {("holidays", sensor.unique_id)},
+    calendar = hass.data["holidays"]["calendar"]["calendar.cz_holidays"]
+    assert calendar.device_info == {
+        "identifiers": {("holidays", calendar.unique_id)},
         "name": "CZ Holidays",
         "manufacturer": "bruxy70",
     }
