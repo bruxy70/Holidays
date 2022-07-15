@@ -18,7 +18,7 @@ _LOGGER = logging.getLogger(__name__)
 
 
 async def async_setup(hass: HomeAssistant, _: ConfigType) -> bool:
-    """Setup platform."""
+    """Set up the platform - inicialize data structure."""
     hass.data.setdefault(const.DOMAIN, {})
     hass.data[const.DOMAIN].setdefault(const.CALENDAR_PLATFORM, {})
     return True
