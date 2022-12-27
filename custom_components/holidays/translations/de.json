@@ -7,8 +7,8 @@
                 "data": {
                     "name": "Friendly Name",
                     "icon_normal": "Icon (mdi:calendar-blank) - optional",
-                    "icon_tomorrow": "Icon Abfuhr morgen (mdi:calendar-arrow-right) - optional",
-                    "icon_today": "Icon Abfuhr heute (mdi:calendar-check) - optional",
+                    "icon_tomorrow": "Icon Abholung morgen (mdi:calendar-arrow-right) - optional",
+                    "icon_today": "Icon Abholung heute (mdi:calendar-check) - optional",
                     "country": "Land",
                     "observed": "Überwacht (optional)"
                 }
