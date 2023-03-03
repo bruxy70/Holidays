@@ -13,6 +13,7 @@ ERROR_NAME = "Next holiday should be {}, not {}."
 ERROR_DATE = "Next holiday should be on {}, not {}."
 ERROR_LENGTH = "Holidays should have {} items, not {}."
 
+
 @pytest.mark.asyncio
 async def test_uk(hass: HomeAssistant) -> None:
     """Test UK Holidays."""
@@ -40,6 +41,7 @@ async def test_uk(hass: HomeAssistant) -> None:
     )
     assert len_holidays == 27, ERROR_LENGTH.format(27, len_holidays)
 
+
 @pytest.mark.asyncio
 async def test_cz(hass: HomeAssistant) -> None:
     """Test CZ Holidays."""
@@ -65,6 +67,7 @@ async def test_cz(hass: HomeAssistant) -> None:
         "April 10", next_date.date()
     )
     assert len_holidays == 39, ERROR_LENGTH.format(39, len_holidays)
+
 
 @pytest.mark.asyncio
 async def test_pop(hass: HomeAssistant) -> None:
