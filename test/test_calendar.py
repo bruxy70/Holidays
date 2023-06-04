@@ -70,7 +70,36 @@ async def test_cz(hass: HomeAssistant) -> None:
 
 
 @pytest.mark.asyncio
-async def test_pop(hass: HomeAssistant) -> None:
+async def test_se(hass: HomeAssistant) -> None:
+    """Test SE Holidays."""
+
+    config_entry: MockConfigEntry = MockConfigEntry(
+        domain=const.DOMAIN,
+        options={"country": "SE"},
+        title="SE Holidays",
+    )
+    config_entry.add_to_hass(hass)
+    await hass.config_entries.async_setup(config_entry.entry_id)
+    await hass.async_block_till_done()
+    assert config_entry.state == config_entries.ConfigEntryState.LOADED
+    se_holidays = hass.states.get("calendar.se_holidays")
+    state = se_holidays.state
+    next_date = se_holidays.attributes["next_date"]
+    next_holiday = se_holidays.attributes["next_holiday"]
+    holidays = se_holidays.attributes["holidays"]
+    len_holidays = len(holidays)
+    assert state == "40", ERROR_STATE.format(9, state)
+    assert next_holiday == "Långfredagen", ERROR_NAME.format(
+        "Långfredagen", next_holiday
+    )
+    assert next_date.date() == date(2020, 4, 10), ERROR_DATE.format(
+        "April 10", next_date.date()
+    )
+    assert len_holidays == 48, ERROR_LENGTH.format(48, len_holidays)
+
+
+@pytest.mark.asyncio
+async def test_pop_uk(hass: HomeAssistant) -> None:
     """Test Pop Holidays."""
 
     config_entry: MockConfigEntry = MockConfigEntry(
@@ -95,9 +124,45 @@ async def test_pop(hass: HomeAssistant) -> None:
     next_holiday = uk_holidays.attributes["next_holiday"]
     holidays = uk_holidays.attributes["holidays"]
     len_holidays = len(holidays)
-    assert state == "40", ERROR_STATE.format(9, state)
+    assert state == "40", ERROR_STATE.format(40, state)
     assert next_holiday == "Good Friday", ERROR_NAME.format("Good Friday", next_holiday)
     assert next_date.date() == date(2020, 4, 10), ERROR_DATE.format(
         "April 10", next_date.date()
     )
-    assert len_holidays == 40, ERROR_LENGTH.format(44, len_holidays)
+    assert len_holidays == 40, ERROR_LENGTH.format(40, len_holidays)
+
+
+@pytest.mark.asyncio
+async def test_pop_texas(hass: HomeAssistant) -> None:
+    """Test Pop Holidays."""
+
+    config_entry: MockConfigEntry = MockConfigEntry(
+        domain=const.DOMAIN,
+        options={
+            "country": "US",
+            "subdiv": "TX",
+            "observed": True,
+            "holiday_pop_named": [
+                "Emancipation Day In Texas; Juneteenth National Independence Day",
+            ],
+        },
+        title="US Holidays",
+    )
+    config_entry.add_to_hass(hass)
+    await hass.config_entries.async_setup(config_entry.entry_id)
+    await hass.async_block_till_done()
+    assert config_entry.state == config_entries.ConfigEntryState.LOADED
+    us_holidays = hass.states.get("calendar.us_holidays")
+    state = us_holidays.state
+    next_date = us_holidays.attributes["next_date"]
+    next_holiday = us_holidays.attributes["next_holiday"]
+    holidays = us_holidays.attributes["holidays"]
+    len_holidays = len(holidays)
+    assert state == "1", ERROR_STATE.format(1, state)
+    assert next_holiday == "Texas Independence Day", ERROR_NAME.format(
+        "Texas Independence Day", next_holiday
+    )
+    assert next_date.date() == date(2020, 3, 2), ERROR_DATE.format(
+        "April 10", next_date.date()
+    )
+    assert len_holidays == 64, ERROR_LENGTH.format(64, len_holidays)
