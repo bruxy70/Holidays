@@ -163,4 +163,4 @@ async def test_pop_texas(hass: HomeAssistant) -> None:
     assert next_date.date() == date(2020, 3, 2), ERROR_DATE.format(
         "April 10", next_date.date()
     )
-    assert len_holidays == 64, ERROR_LENGTH.format(64, len_holidays)
+    assert len_holidays == 65, ERROR_LENGTH.format(65, len_holidays)

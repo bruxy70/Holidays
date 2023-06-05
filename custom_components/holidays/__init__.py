@@ -117,8 +117,7 @@ def create_holidays(
         kwargs["subdiv"] = subdiv
     kwargs["observed"] = observed
     # pylint: disable=maybe-no-member
+    # mypy: disable-error-code="attr-defined"
     if country == "SE":
-        return holidays.Sweden(
-            include_sundays=False, **kwargs
-        )  # type: ignore[attr-defined]
+        return holidays.Sweden(include_sundays=False, **kwargs)
     return holidays.country_holidays(country, **kwargs)
