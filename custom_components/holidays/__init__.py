@@ -5,6 +5,7 @@ import logging
 from datetime import timedelta
 from typing import Any, Dict
 
+# mypy: disable-error-code="attr-defined"
 import holidays  # pylint: disable=import-self
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
@@ -117,7 +118,6 @@ def create_holidays(
         kwargs["subdiv"] = subdiv
     kwargs["observed"] = observed
     # pylint: disable=maybe-no-member
-    # mypy: disable-error-code="attr-defined"
     if country == "SE":
         return holidays.Sweden(include_sundays=False, **kwargs)
     return holidays.country_holidays(country, **kwargs)
