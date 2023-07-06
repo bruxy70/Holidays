@@ -1,5 +1,4 @@
 """Test migration from older version."""
-import pytest
 from homeassistant import config_entries
 from homeassistant.core import HomeAssistant
 from pytest_homeassistant_custom_component.common import MockConfigEntry

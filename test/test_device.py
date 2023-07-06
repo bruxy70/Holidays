@@ -1,5 +1,4 @@
 """Test all frequencies (except blank)."""
-import pytest
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers import entity_registry as er
