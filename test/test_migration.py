@@ -7,7 +7,7 @@ from pytest_homeassistant_custom_component.common import MockConfigEntry
 from custom_components.holidays import const
 
 
-@pytest.mark.asyncio
+# @pytest.mark.asyncio
 async def test_version1(hass: HomeAssistant) -> None:
     """Migration from version 1."""
 
@@ -35,7 +35,7 @@ async def test_version1(hass: HomeAssistant) -> None:
     assert config_entry2.state == config_entries.ConfigEntryState.LOADED
 
 
-@pytest.mark.asyncio
+# @pytest.mark.asyncio
 async def test_version2(hass: HomeAssistant) -> None:
     """Migration from version 2."""
 

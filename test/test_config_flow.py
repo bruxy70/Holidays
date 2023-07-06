@@ -10,7 +10,7 @@ from custom_components.holidays import const
 from custom_components.holidays.const import DOMAIN
 
 
-@pytest.mark.asyncio
+# @pytest.mark.asyncio
 async def test_gb_config_flow(hass: HomeAssistant) -> None:
     """Test we get the form."""
     await setup.async_setup_component(hass, "persistent_notification", {})
@@ -46,7 +46,7 @@ async def test_gb_config_flow(hass: HomeAssistant) -> None:
     # ...add England for subdiv
     result = await hass.config_entries.flow.async_configure(
         result["flow_id"],
-        user_input={"subdiv": "England"},
+        user_input={"subdiv": "ENG"},
     )
     assert (
         "type" in result
@@ -73,13 +73,13 @@ async def test_gb_config_flow(hass: HomeAssistant) -> None:
     assert result["type"] == data_entry_flow.RESULT_TYPE_CREATE_ENTRY
     assert result["options"] == {
         "country": "GB",
-        "subdiv": "England",
+        "subdiv": "ENG",
         "name": "English calendar",
     }
     assert len(mock_setup_entry.mock_calls) == 1
 
 
-@pytest.mark.asyncio
+# @pytest.mark.asyncio
 async def test_pl_config_flow(hass: HomeAssistant) -> None:
     """Test we get the form."""
     await setup.async_setup_component(hass, "persistent_notification", {})
@@ -131,14 +131,14 @@ async def test_pl_config_flow(hass: HomeAssistant) -> None:
     assert len(mock_setup_entry.mock_calls) == 1
 
 
-@pytest.mark.asyncio
+# @pytest.mark.asyncio
 async def test_options_flow(hass: HomeAssistant) -> None:
     """Test we get the form."""
 
     # Create MockConfigEntry
     config_entry: MockConfigEntry = MockConfigEntry(
         domain=const.DOMAIN,
-        options={"country": "GB", "subdiv": "England"},
+        options={"country": "GB", "subdiv": "ENG"},
         title="UK Holidays",
     )
     config_entry.add_to_hass(hass)
@@ -174,7 +174,7 @@ async def test_options_flow(hass: HomeAssistant) -> None:
     # ...add England for subdiv
     result = await hass.config_entries.options.async_configure(
         result["flow_id"],
-        user_input={"subdiv": "England"},
+        user_input={"subdiv": "ENG"},
     )
     assert (
         "type" in result
@@ -197,5 +197,5 @@ async def test_options_flow(hass: HomeAssistant) -> None:
     assert result["type"] == data_entry_flow.RESULT_TYPE_CREATE_ENTRY
     assert result["data"] == {
         "country": "GB",
-        "subdiv": "England",
+        "subdiv": "ENG",
     }

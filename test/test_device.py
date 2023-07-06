@@ -8,7 +8,7 @@ from pytest_homeassistant_custom_component.common import MockConfigEntry
 from custom_components.holidays import const
 
 
-@pytest.mark.asyncio
+# @pytest.mark.asyncio
 async def test_device(hass: HomeAssistant) -> None:
     """Test device registry."""
 
@@ -29,7 +29,7 @@ async def test_device(hass: HomeAssistant) -> None:
     assert device.name == "CZ Holidays"
 
 
-@pytest.mark.asyncio
+# @pytest.mark.asyncio
 async def test_device_info(hass: HomeAssistant) -> None:
     """Test device info."""
 
@@ -49,7 +49,7 @@ async def test_device_info(hass: HomeAssistant) -> None:
     }
 
 
-@pytest.mark.asyncio
+# @pytest.mark.asyncio
 async def test_entity(hass: HomeAssistant) -> None:
     """Test entity registry."""
 

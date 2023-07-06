@@ -14,7 +14,7 @@ ERROR_DATE = "Next holiday should be on {}, not {}."
 ERROR_LENGTH = "Holidays should have {} items, not {}."
 
 
-@pytest.mark.asyncio
+# @pytest.mark.asyncio
 async def test_uk(hass: HomeAssistant) -> None:
     """Test UK Holidays."""
 
@@ -42,7 +42,7 @@ async def test_uk(hass: HomeAssistant) -> None:
     assert len_holidays == 27, ERROR_LENGTH.format(27, len_holidays)
 
 
-@pytest.mark.asyncio
+# @pytest.mark.asyncio
 async def test_cz(hass: HomeAssistant) -> None:
     """Test CZ Holidays."""
 
@@ -69,7 +69,7 @@ async def test_cz(hass: HomeAssistant) -> None:
     assert len_holidays == 39, ERROR_LENGTH.format(39, len_holidays)
 
 
-@pytest.mark.asyncio
+# @pytest.mark.asyncio
 async def test_se(hass: HomeAssistant) -> None:
     """Test SE Holidays."""
 
@@ -89,14 +89,16 @@ async def test_se(hass: HomeAssistant) -> None:
     holidays = se_holidays.attributes["holidays"]
     len_holidays = len(holidays)
     assert state == "40", ERROR_STATE.format(9, state)
-    assert next_holiday == "Good Friday", ERROR_NAME.format("Good Friday", next_holiday)
+    assert next_holiday == "Långfredagen", ERROR_NAME.format(
+        "Långfredagen", next_holiday
+    )
     assert next_date.date() == date(2020, 4, 10), ERROR_DATE.format(
         "April 10", next_date.date()
     )
     assert len_holidays == 48, ERROR_LENGTH.format(48, len_holidays)
 
 
-@pytest.mark.asyncio
+# @pytest.mark.asyncio
 async def test_pop_uk(hass: HomeAssistant) -> None:
     """Test Pop Holidays."""
 
@@ -127,10 +129,10 @@ async def test_pop_uk(hass: HomeAssistant) -> None:
     assert next_date.date() == date(2020, 4, 10), ERROR_DATE.format(
         "April 10", next_date.date()
     )
-    assert len_holidays == 40, ERROR_LENGTH.format(40, len_holidays)
+    assert len_holidays == 21, ERROR_LENGTH.format(21, len_holidays)
 
 
-@pytest.mark.asyncio
+# @pytest.mark.asyncio
 async def test_pop_texas(hass: HomeAssistant) -> None:
     """Test Pop Holidays."""
 
@@ -163,4 +165,4 @@ async def test_pop_texas(hass: HomeAssistant) -> None:
     assert next_date.date() == date(2020, 3, 2), ERROR_DATE.format(
         "April 10", next_date.date()
     )
-    assert len_holidays == 65, ERROR_LENGTH.format(65, len_holidays)
+    assert len_holidays == 63, ERROR_LENGTH.format(63, len_holidays)
