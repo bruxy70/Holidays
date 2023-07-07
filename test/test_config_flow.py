@@ -45,7 +45,7 @@ async def test_gb_config_flow(hass: HomeAssistant) -> None:
     # ...add England for subdiv
     result = await hass.config_entries.flow.async_configure(
         result["flow_id"],
-        user_input={"subdiv": "ENG"},
+        user_input={"subdiv": "England"},
     )
     assert (
         "type" in result
@@ -72,7 +72,7 @@ async def test_gb_config_flow(hass: HomeAssistant) -> None:
     assert result["type"] == data_entry_flow.RESULT_TYPE_CREATE_ENTRY
     assert result["options"] == {
         "country": "GB",
-        "subdiv": "ENG",
+        "subdiv": "England",
         "name": "English calendar",
     }
     assert len(mock_setup_entry.mock_calls) == 1
@@ -173,7 +173,7 @@ async def test_options_flow(hass: HomeAssistant) -> None:
     # ...add England for subdiv
     result = await hass.config_entries.options.async_configure(
         result["flow_id"],
-        user_input={"subdiv": "ENG"},
+        user_input={"subdiv": "England"},
     )
     assert (
         "type" in result
@@ -196,5 +196,5 @@ async def test_options_flow(hass: HomeAssistant) -> None:
     assert result["type"] == data_entry_flow.RESULT_TYPE_CREATE_ENTRY
     assert result["data"] == {
         "country": "GB",
-        "subdiv": "ENG",
+        "subdiv": "England",
     }
