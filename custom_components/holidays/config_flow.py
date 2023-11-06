@@ -29,8 +29,8 @@ country_codes = [selector.SelectOptionDict(value=c, label=c) for c in sorted_cou
 async def choose_second_step(options: Dict[str, Any]) -> str:
     """Return next step_id for options flow."""
     subdivs = supported_countries[options.get(const.CONF_COUNTRY)]
-    languages = localised_countries[options.get(const.CONF_COUNTRY)]
-    if subdivs or languages:
+    languages = localised_countries.get(options.get(const.CONF_COUNTRY), "")
+    if subdivs or languages != "":
         # If country was changed, remove subdivs for the wrong country
         if const.CONF_SUBDIV in options and options[const.CONF_SUBDIV] not in subdivs:
             del options[const.CONF_SUBDIV]
