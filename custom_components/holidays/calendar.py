@@ -102,6 +102,7 @@ class Holidays(CalendarEntity, RestoreEntity):
                 years,
                 self._country,
                 self._holiday_subdiv,
+                self._language,
                 self._holiday_observed,
             )
             if self._holiday_pop_named is not None:

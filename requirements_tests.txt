@@ -1,4 +1,4 @@
-holidays==0.21.13
-homeassistant==2023.7.0
-pytest-homeassistant-custom-component==0.13.42
-aiohttp_cors==0.7.0
+holidays>=0.35
+homeassistant>=2023.11.1
+pytest-homeassistant-custom-component>=0.13.75
+aiohttp_cors>=0.7.0
