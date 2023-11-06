@@ -45,7 +45,7 @@ async def test_cz(hass: HomeAssistant) -> None:
 
     config_entry: MockConfigEntry = MockConfigEntry(
         domain=const.DOMAIN,
-        options={"country": "CZ"},
+        options={"country": "CZ", "languages": "cs"},
         title="CZ Holidays",
     )
     config_entry.add_to_hass(hass)
@@ -59,7 +59,7 @@ async def test_cz(hass: HomeAssistant) -> None:
     holidays = cz_holidays.attributes["holidays"]
     len_holidays = len(holidays)
     assert state == "40", ERROR_STATE.format(9, state)
-    assert next_holiday == "Good Friday", ERROR_NAME.format("Good Friday", next_holiday)
+    assert next_holiday == "Velký pátek", ERROR_NAME.format("Velký pátek", next_holiday)
     assert next_date.date() == date(2020, 4, 10), ERROR_DATE.format(
         "April 10", next_date.date()
     )
@@ -71,7 +71,7 @@ async def test_se(hass: HomeAssistant) -> None:
 
     config_entry: MockConfigEntry = MockConfigEntry(
         domain=const.DOMAIN,
-        options={"country": "SE"},
+        options={"country": "SE", "languages":"sv"},
         title="SE Holidays",
     )
     config_entry.add_to_hass(hass)
@@ -85,7 +85,7 @@ async def test_se(hass: HomeAssistant) -> None:
     holidays = se_holidays.attributes["holidays"]
     len_holidays = len(holidays)
     assert state == "40", ERROR_STATE.format(9, state)
-    assert next_holiday == "Good Friday", ERROR_NAME.format("Good Friday", next_holiday)
+    assert next_holiday == "Långfredagen", ERROR_NAME.format("Långfredagen", next_holiday)
     assert next_date.date() == date(2020, 4, 10), ERROR_DATE.format(
         "April 10", next_date.date()
     )
