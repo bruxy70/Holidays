@@ -40,6 +40,7 @@ class Holidays(CalendarEntity, RestoreEntity):
         "_hidden",
         "_country",
         "_holiday_subdiv",
+        "_language",
         "_holiday_observed",
         "_holiday_pop_named",
         "_holidays",
@@ -67,6 +68,7 @@ class Holidays(CalendarEntity, RestoreEntity):
         self._hidden = config.get(ATTR_HIDDEN, False)
         self._country = config.get(const.CONF_COUNTRY, "")
         self._holiday_subdiv = config.get(const.CONF_SUBDIV, "")
+        self._language = config.get(const.CONF_LANGUAGES, "")
         self._holiday_observed = config.get(const.CONF_OBSERVED, True)
         self._holiday_pop_named = config.get(const.CONF_HOLIDAY_POP_NAMED)
         self._holidays: list[date] = []
