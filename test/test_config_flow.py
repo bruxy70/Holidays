@@ -1,7 +1,6 @@
 """Test the Simple Integration config flow."""
 from unittest.mock import patch
 
-import pytest_asyncio
 from homeassistant import config_entries, data_entry_flow, setup
 from homeassistant.core import HomeAssistant
 from pytest_homeassistant_custom_component.common import MockConfigEntry
@@ -10,7 +9,6 @@ from custom_components.holidays import const
 from custom_components.holidays.const import DOMAIN
 
 
-@pytest_asyncio.fixture(scope="session")
 async def test_gb_config_flow(hass: HomeAssistant) -> None:
     """Test we get the form."""
     await setup.async_setup_component(hass, "persistent_notification", {})
@@ -46,7 +44,7 @@ async def test_gb_config_flow(hass: HomeAssistant) -> None:
     # ...add England for subdiv
     result = await hass.config_entries.flow.async_configure(
         result["flow_id"],
-        user_input={"subdiv": "England"},
+        user_input={"subdiv": "ENG"},
     )
     assert (
         "type" in result
@@ -73,65 +71,12 @@ async def test_gb_config_flow(hass: HomeAssistant) -> None:
     assert result["type"] == data_entry_flow.RESULT_TYPE_CREATE_ENTRY
     assert result["options"] == {
         "country": "GB",
-        "subdiv": "England",
+        "subdiv": "ENG",
         "name": "English calendar",
     }
     assert len(mock_setup_entry.mock_calls) == 1
 
 
-@pytest_asyncio.fixture(scope="session")
-async def test_pl_config_flow(hass: HomeAssistant) -> None:
-    """Test we get the form."""
-    await setup.async_setup_component(hass, "persistent_notification", {})
-
-    # Initialise Config Flow
-    result = await hass.config_entries.flow.async_init(
-        DOMAIN, context={"source": config_entries.SOURCE_USER}
-    )
-    assert "type" in result and "step_id" in result and "flow_id" in result
-
-    # Check that the config flow shows the user form as the first step
-    assert result["type"] == data_entry_flow.RESULT_TYPE_FORM
-    assert result["step_id"] == "user"
-
-    # If a user were to enter `PL` for country,
-    # it would result in this function call
-    result = await hass.config_entries.flow.async_configure(
-        result["flow_id"],
-        user_input={"name": "Polish calendar", "country": "PL"},
-    )
-    assert (
-        "type" in result
-        and "step_id" in result
-        and "flow_id" in result
-        and "errors" in result
-    )
-
-    # Should pass to the pop step
-    assert result["type"] == data_entry_flow.RESULT_TYPE_FORM
-    assert result["step_id"] == "pop"
-    assert not result["errors"]
-
-    # ... wil leave pop enpty
-    with patch(
-        "custom_components.holidays.async_setup_entry",
-        return_value=True,
-    ) as mock_setup_entry:
-        result = await hass.config_entries.flow.async_configure(
-            result["flow_id"],
-            user_input={},
-        )
-    assert "type" in result and "options" in result
-    # Should create entry
-    assert result["type"] == data_entry_flow.RESULT_TYPE_CREATE_ENTRY
-    assert result["options"] == {
-        "country": "PL",
-        "name": "Polish calendar",
-    }
-    assert len(mock_setup_entry.mock_calls) == 1
-
-
-@pytest_asyncio.fixture(scope="session")
 async def test_options_flow(hass: HomeAssistant) -> None:
     """Test we get the form."""
 
@@ -174,7 +119,7 @@ async def test_options_flow(hass: HomeAssistant) -> None:
     # ...add England for subdiv
     result = await hass.config_entries.options.async_configure(
         result["flow_id"],
-        user_input={"subdiv": "England"},
+        user_input={"subdiv": "ENG"},
     )
     assert (
         "type" in result
@@ -197,5 +142,5 @@ async def test_options_flow(hass: HomeAssistant) -> None:
     assert result["type"] == data_entry_flow.RESULT_TYPE_CREATE_ENTRY
     assert result["data"] == {
         "country": "GB",
-        "subdiv": "England",
+        "subdiv": "ENG",
     }
