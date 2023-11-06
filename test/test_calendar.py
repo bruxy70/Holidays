@@ -1,6 +1,7 @@
 """Test calendar for simple integration."""
 from datetime import date
 
+import pytest_asyncio
 from homeassistant import config_entries
 from homeassistant.core import HomeAssistant
 from pytest_homeassistant_custom_component.common import MockConfigEntry
@@ -13,7 +14,7 @@ ERROR_DATE = "Next holiday should be on {}, not {}."
 ERROR_LENGTH = "Holidays should have {} items, not {}."
 
 
-# @pytest.mark.asyncio
+@pytest_asyncio.fixture(scope="session")
 async def test_uk(hass: HomeAssistant) -> None:
     """Test UK Holidays."""
 
@@ -41,7 +42,7 @@ async def test_uk(hass: HomeAssistant) -> None:
     assert len_holidays == 27, ERROR_LENGTH.format(27, len_holidays)
 
 
-# @pytest.mark.asyncio
+@pytest_asyncio.fixture(scope="session")
 async def test_cz(hass: HomeAssistant) -> None:
     """Test CZ Holidays."""
 
@@ -68,7 +69,7 @@ async def test_cz(hass: HomeAssistant) -> None:
     assert len_holidays == 39, ERROR_LENGTH.format(39, len_holidays)
 
 
-# @pytest.mark.asyncio
+@pytest_asyncio.fixture(scope="session")
 async def test_se(hass: HomeAssistant) -> None:
     """Test SE Holidays."""
 
@@ -97,7 +98,7 @@ async def test_se(hass: HomeAssistant) -> None:
     assert len_holidays == 48, ERROR_LENGTH.format(48, len_holidays)
 
 
-# @pytest.mark.asyncio
+@pytest_asyncio.fixture(scope="session")
 async def test_pop_uk(hass: HomeAssistant) -> None:
     """Test Pop Holidays."""
 
@@ -131,7 +132,7 @@ async def test_pop_uk(hass: HomeAssistant) -> None:
     assert len_holidays == 40, ERROR_LENGTH.format(40, len_holidays)
 
 
-# @pytest.mark.asyncio
+@pytest_asyncio.fixture(scope="session")
 async def test_pop_texas(hass: HomeAssistant) -> None:
     """Test Pop Holidays."""
 

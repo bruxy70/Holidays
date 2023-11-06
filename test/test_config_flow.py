@@ -1,6 +1,7 @@
 """Test the Simple Integration config flow."""
 from unittest.mock import patch
 
+import pytest_asyncio
 from homeassistant import config_entries, data_entry_flow, setup
 from homeassistant.core import HomeAssistant
 from pytest_homeassistant_custom_component.common import MockConfigEntry
@@ -9,7 +10,7 @@ from custom_components.holidays import const
 from custom_components.holidays.const import DOMAIN
 
 
-# @pytest.mark.asyncio
+@pytest_asyncio.fixture(scope="session")
 async def test_gb_config_flow(hass: HomeAssistant) -> None:
     """Test we get the form."""
     await setup.async_setup_component(hass, "persistent_notification", {})
@@ -78,7 +79,7 @@ async def test_gb_config_flow(hass: HomeAssistant) -> None:
     assert len(mock_setup_entry.mock_calls) == 1
 
 
-# @pytest.mark.asyncio
+@pytest_asyncio.fixture(scope="session")
 async def test_pl_config_flow(hass: HomeAssistant) -> None:
     """Test we get the form."""
     await setup.async_setup_component(hass, "persistent_notification", {})
@@ -130,7 +131,7 @@ async def test_pl_config_flow(hass: HomeAssistant) -> None:
     assert len(mock_setup_entry.mock_calls) == 1
 
 
-# @pytest.mark.asyncio
+@pytest_asyncio.fixture(scope="session")
 async def test_options_flow(hass: HomeAssistant) -> None:
     """Test we get the form."""
 
