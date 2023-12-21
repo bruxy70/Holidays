@@ -58,3 +58,11 @@ The State contains the number of days to the next country holiday. It is `0` if 
 | `next_date`    | The date of the next holiday                                                                                                                                                                                              |
 | `next_holiday` | The name of the next holiday                                                                                                                                                                                              |
 | `holidays`     | List of country holidays (last year, this year, and next year). This is used by the `garbage_collection` blueprints to offset collections if they fall on a public holiday (or if the holiday was earlier on in the week) |
+
+## Troubleshooting
+
+If you have successfully installed this integration and created a helper, but the Calendar is unable to fetch events from the helper, you may want to try ensuring that the `python-holidays` package is up to date:
+
+```sh
+pip install --upgrade holidays
+```
