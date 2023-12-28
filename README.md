@@ -1,6 +1,8 @@
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/hacs/integration) [![Holidays](https://img.shields.io/github/v/release/bruxy70/Holidays.svg?1)](https://github.com/bruxy70/Holidays) ![Maintenance](https://img.shields.io/maintenance/yes/2023.svg)
 
-[![Buy me a coffee](https://img.shields.io/static/v1.svg?label=Buy%20me%20a%20coffee&message=🥨&color=black&logo=buy%20me%20a%20coffee&logoColor=white&labelColor=6f4e37)](https://www.buymeacoffee.com/3nXx0bJDP)
+## End of Support
+
+Home Assistant has introduced native holiday integration in the 2024.1 release. I have therefore ended developing this custom integration.
 
 # Holidays
 
@@ -12,7 +14,7 @@ It's primary purpose is to work with [garbage_collection](https://github.com/bru
 - [Installation](#installation)
   - [Manual Installation](#manual-installation)
   - [Installation via Home Assistant Community Store (HACS)](#installation-via-home-assistant-community-store-hacs)
-- [Parameters](#Parameters)
+- [Parameters](#parameters)
 - [State and Attributes](#state-and-attributes)
 
 ## Installation
